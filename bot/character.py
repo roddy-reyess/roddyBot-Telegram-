@@ -26,3 +26,4 @@ class character():
     def addField(self, definer, text):
         if definer in self.charDict:
             self.charDict[definer] = text
+            print(self.charDict[definer])

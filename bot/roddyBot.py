@@ -1,12 +1,13 @@
 # coding: utf8
 import telebot
-import character
+from character import character
 import json
 
+pj = character()
 bot = telebot.TeleBot("824465608:AAG1U3q3CzxLX0aYHNfX4Eyk4-Eldv-XK9Q")
 menu_keyboard = json.dumps({'keyboard': [["/crear_personaje"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 option1_keyboard = json.dumps({'keyboard': [["/ayuda"], ["/crear"]], 'one_time_keyboard': True, 'resize_keyboard': True})
-option1_keyboard = json.dumps({'keyboard': ["/estatus"], 'one_time_keyboard': True, 'resize_keyboard': True})
+option2_keyboard = json.dumps({'keyboard': ["/estatus"], 'one_time_keyboard': True, 'resize_keyboard': True})
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -47,19 +48,26 @@ def menu_info(message):
 @bot.message_handler(commands=['nombre'])
 def addNameChar(message):
     documentoPj = open (str(message.chat.first_name) + ".txt", "a")
-    nouMissatge = message.text.split()
-    #mostrar = ""
-    #for value in nouMissatge:
-    #    if value == "/nombre":
-    #        pass
-    #    else:
-    #        mostrar = mostrar + value
-    #        mostrar = mostrar + " "
+    new = message.text.split()
+    show = ""
+    definer = ""
+    for i in new:
+        if i != "/nombre":
+            show = show + i
+            show = show + " "
+        else:
+            definer = definer + i
+            definer = definer.replace(definer[0], "")
+    #print(show + "//////" + definer)
+    pj.addField(definer, show)
+
     #documentoPj.write(mostrar+";")
     #documentoPj.close()
-    bot.send_message(message.chat.id,"Tu nombre ha sido añadido:" + str(mostrar))
+    bot.send_message(message.chat.id,"Tu nombre ha sido añadido:")
 
 @bot.message_handler(commands=['estatus'])
 def creationStatus(message):
+    missingElements = pj.charCheck()
+    bot.send_message(message.chat.id, "Faltan los siguientes campos por rellenar: " + str(missingElements))
 
 bot.polling(none_stop=True)
