@@ -1,10 +1,12 @@
 # coding: utf8
 import telebot
+import character
 import json
 
 bot = telebot.TeleBot("824465608:AAG1U3q3CzxLX0aYHNfX4Eyk4-Eldv-XK9Q")
 menu_keyboard = json.dumps({'keyboard': [["/crear_personaje"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 option1_keyboard = json.dumps({'keyboard': [["/ayuda"], ["/crear"]], 'one_time_keyboard': True, 'resize_keyboard': True})
+option1_keyboard = json.dumps({'keyboard': ["/estatus"], 'one_time_keyboard': True, 'resize_keyboard': True})
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -46,7 +48,18 @@ def menu_info(message):
 def addNameChar(message):
     documentoPj = open (str(message.chat.first_name) + ".txt", "a")
     nouMissatge = message.text.split()
-    documentoPj.write(nouMissatge[-1]+";")
-    documentoPj.close()
-    bot.send_message(message.chat.id,"""Nombre ha sido añadido""")
+    #mostrar = ""
+    #for value in nouMissatge:
+    #    if value == "/nombre":
+    #        pass
+    #    else:
+    #        mostrar = mostrar + value
+    #        mostrar = mostrar + " "
+    #documentoPj.write(mostrar+";")
+    #documentoPj.close()
+    bot.send_message(message.chat.id,"Tu nombre ha sido añadido:" + str(mostrar))
+
+@bot.message_handler(commands=['estatus'])
+def creationStatus(message):
+
 bot.polling(none_stop=True)
