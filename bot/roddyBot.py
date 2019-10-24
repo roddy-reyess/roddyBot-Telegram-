@@ -4,10 +4,28 @@ from character import character
 import json
 
 pj = character()
+show = ""
+definer = ""
+new = ""
 bot = telebot.TeleBot("824465608:AAG1U3q3CzxLX0aYHNfX4Eyk4-Eldv-XK9Q")
 menu_keyboard = json.dumps({'keyboard': [["/crear_personaje"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 option1_keyboard = json.dumps({'keyboard': [["/ayuda"], ["/crear"]], 'one_time_keyboard': True, 'resize_keyboard': True})
-option2_keyboard = json.dumps({'keyboard': ["/estatus"], 'one_time_keyboard': True, 'resize_keyboard': True})
+option2_keyboard = json.dumps({'keyboard': [["/sí"],["/no"]], 'one_time_keyboard': True, 'resize_keyboard': True})
+
+def fillVariables(new):
+    list = ""
+    modifier = ""
+    for i in new:
+        if i != new[0]:
+            list = list + i + " "
+        else:
+            modifier = modifier + i
+            modifier = modifier.replace(modifier[0], "")
+    return list, modifier
+#
+#
+#
+#
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -47,27 +65,65 @@ def menu_info(message):
 
 @bot.message_handler(commands=['nombre'])
 def addNameChar(message):
-    documentoPj = open (str(message.chat.first_name) + ".txt", "a")
     new = message.text.split()
-    show = ""
-    definer = ""
-    for i in new:
-        if i != "/nombre":
-            show = show + i
-            show = show + " "
-        else:
-            definer = definer + i
-            definer = definer.replace(definer[0], "")
-    #print(show + "//////" + definer)
+    show, definer = fillVariables(new)
+    print(show + "////// " + definer)
     pj.addField(definer, show)
 
     #documentoPj.write(mostrar+";")
     #documentoPj.close()
-    bot.send_message(message.chat.id,"Tu nombre ha sido añadido:")
+    bot.send_message(message.chat.id,"Tu nombre ha sido añadido. Bienvenido " + str(show) + ".")
+
+@bot.message_handler(commands=['edad'])
+def addAgeChar(message):
+    new = message.text.split()
+    show, definer = fillVariables(new)
+    print(show + "//////" + definer)
+    pj.addField(definer, show)
+    bot.send_message(message.chat.id,"Tienes " + str(show) + "años.")
+
+@bot.message_handler(commands=['clase'])
+def addAgeChar(message):
+    new = message.text.split()
+    show, definer = fillVariables(new)
+    print(show + "//////" + definer)
+    pj.addField(definer, show)
+    bot.send_message(message.chat.id,"Tu clase es " + str(show) + ". \n Vaya, ¡Eres increible!")
+
+@bot.message_handler(commands=['apariencia'])
+def addAgeChar(message):
+    new = message.text.split()
+    show, definer = fillVariables(new)
+    print(show + "//////" + definer)
+    pj.addField(definer, show)
+    bot.send_message(message.chat.id,"Eso es bueno, pensaba que eras un hombre sin cara y me asusté.")
+
+@bot.message_handler(commands=['personalidad'])
+def addAgeChar(message):
+    new = message.text.split()
+    show, definer = fillVariables(new)
+    print(show + "//////" + definer)
+    pj.addField(definer, show)
+    bot.send_message(message.chat.id,"Ahora siento que te conozco mejor.")
+
+@bot.message_handler(commands=['historia'])
+def addAgeChar(message):
+    new = message.text.split()
+    show, definer = fillVariables(new)
+    print(show + "//////" + definer)
+    pj.addField(definer, show)
+    bot.send_message(message.chat.id,"Veo que tienes una historia... Algún día te contaré la mía, amigo.")
 
 @bot.message_handler(commands=['estatus'])
 def creationStatus(message):
     missingElements = pj.charCheck()
-    bot.send_message(message.chat.id, "Faltan los siguientes campos por rellenar: " + str(missingElements))
+    if len(missingElements) >= 1:
+        bot.send_message(message.chat.id, "Faltan los siguientes campos por rellenar: " + str(missingElements) + ".")
+    else:
+        bot.send_message(message.chat.id, "¡Todos los campos creados! ¿Quieres guardar los cambios en tu fichero de personaje?", reply_markup = option2_keyboard)
+
+
+
+
 
 bot.polling(none_stop=True)

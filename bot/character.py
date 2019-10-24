@@ -26,4 +26,8 @@ class character():
     def addField(self, definer, text):
         if definer in self.charDict:
             self.charDict[definer] = text
-            print(self.charDict[definer])
+
+    def removeAllFields(self):
+        for x,y in self.charDict.items():
+            self.charDict[x] = ""
+            print(self.charDict[x])
