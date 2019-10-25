@@ -10,7 +10,7 @@ new = ""
 bot = telebot.TeleBot("824465608:AAG1U3q3CzxLX0aYHNfX4Eyk4-Eldv-XK9Q")
 menu_keyboard = json.dumps({'keyboard': [["/crear_personaje"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 option1_keyboard = json.dumps({'keyboard': [["/ayuda"], ["/crear"]], 'one_time_keyboard': True, 'resize_keyboard': True})
-option2_keyboard = json.dumps({'keyboard': [["/sí"],["/no"]], 'one_time_keyboard': True, 'resize_keyboard': True})
+option2_keyboard = json.dumps({'keyboard': [["/guardar"],["/no_guardar"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 
 def fillVariables(new):
     list = ""
@@ -22,10 +22,6 @@ def fillVariables(new):
             modifier = modifier + i
             modifier = modifier.replace(modifier[0], "")
     return list, modifier
-#
-#
-#
-#
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -67,7 +63,7 @@ def menu_info(message):
 def addNameChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    print(show + "////// " + definer)
+    #print(show + "////// " + definer)
     pj.addField(definer, show)
 
     #documentoPj.write(mostrar+";")
@@ -78,7 +74,7 @@ def addNameChar(message):
 def addAgeChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    print(show + "//////" + definer)
+    #print(show + "//////" + definer)
     pj.addField(definer, show)
     bot.send_message(message.chat.id,"Tienes " + str(show) + "años.")
 
@@ -86,7 +82,7 @@ def addAgeChar(message):
 def addAgeChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    print(show + "//////" + definer)
+    #print(show + "//////" + definer)
     pj.addField(definer, show)
     bot.send_message(message.chat.id,"Tu clase es " + str(show) + ". \n Vaya, ¡Eres increible!")
 
@@ -94,7 +90,7 @@ def addAgeChar(message):
 def addAgeChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    print(show + "//////" + definer)
+    #print(show + "//////" + definer)
     pj.addField(definer, show)
     bot.send_message(message.chat.id,"Eso es bueno, pensaba que eras un hombre sin cara y me asusté.")
 
@@ -102,7 +98,7 @@ def addAgeChar(message):
 def addAgeChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    print(show + "//////" + definer)
+    #print(show + "//////" + definer)
     pj.addField(definer, show)
     bot.send_message(message.chat.id,"Ahora siento que te conozco mejor.")
 
@@ -110,7 +106,7 @@ def addAgeChar(message):
 def addAgeChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    print(show + "//////" + definer)
+    #print(show + "//////" + definer)
     pj.addField(definer, show)
     bot.send_message(message.chat.id,"Veo que tienes una historia... Algún día te contaré la mía, amigo.")
 
