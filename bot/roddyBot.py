@@ -2,15 +2,24 @@
 import telebot
 from character import character
 import json
+import os.path
 
 pj = character()
 show = ""
 definer = ""
 new = ""
+username = ""
 bot = telebot.TeleBot("824465608:AAG1U3q3CzxLX0aYHNfX4Eyk4-Eldv-XK9Q")
 menu_keyboard = json.dumps({'keyboard': [["/crear_personaje"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 option1_keyboard = json.dumps({'keyboard': [["/ayuda"], ["/crear"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 option2_keyboard = json.dumps({'keyboard': [["/guardar"],["/no_guardar"]], 'one_time_keyboard': True, 'resize_keyboard': True})
+
+def checkFile(file_tofill):
+    return os.path.isfile(str(file_tofill))
+
+def saveCharVal(user_file):
+    charDoc = open(str(user_file)+".txt", 'a')
+    charDoc.write(pj.charDict["nombre"]+";"+pj.charDict[])
 
 def fillVariables(new):
     list = ""
@@ -53,28 +62,27 @@ def menu_info(message):
         create_character(message)
 
     elif message.text =="/crear":
+        username = message.chat.first_name
 
-        bot.send_message(message.chat.id,"""...\n...\n...\n...\n...\n...\nINICIANDO PROCESO DE CREACIÓN DE PERSONAJE\n...\n...\n...\n...\n...\n...""")
-        documentoPj = open (str(message.chat.first_name) + ".txt", "a")
-        documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
-        documentoPj.close()
+        if checkFile(str(username)+".txt") == True:
+            bot.send_message(message.chat.id, "Ya tienes un personaje.")
+        else:
+            bot.send_message(message.chat.id,"""...\n...\n...\n...\n...\n...\nINICIANDO PROCESO DE CREACIÓN DE PERSONAJE\n...\n...\n...\n...\n...\n...""")
+            documentoPj = open (str(username) + ".txt", "w")
+            documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
+            documentoPj.close()
 
 @bot.message_handler(commands=['nombre'])
 def addNameChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    #print(show + "////// " + definer)
     pj.addField(definer, show)
-
-    #documentoPj.write(mostrar+";")
-    #documentoPj.close()
     bot.send_message(message.chat.id,"Tu nombre ha sido añadido. Bienvenido " + str(show) + ".")
 
 @bot.message_handler(commands=['edad'])
 def addAgeChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    #print(show + "//////" + definer)
     pj.addField(definer, show)
     bot.send_message(message.chat.id,"Tienes " + str(show) + "años.")
 
@@ -118,7 +126,14 @@ def creationStatus(message):
     else:
         bot.send_message(message.chat.id, "¡Todos los campos creados! ¿Quieres guardar los cambios en tu fichero de personaje?", reply_markup = option2_keyboard)
 
-
+@bot.message_handler(commands=['guardar','no_guardar'])
+def saveCharValues(message):
+    if message.text == "/guardar":
+        username = message.chat.first_name
+        if checkFile(str(username) + ".txt") == True:
+            saveCharVal(str(username))
+    else:
+        pj.removeAllFields()
 
 
 
