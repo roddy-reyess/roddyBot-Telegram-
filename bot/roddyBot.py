@@ -1,9 +1,11 @@
-# coding: utf8
+#-*- coding: utf8 -*-
 import telebot
 from character import character
 import json
 import os.path
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 pj = character()
 show = ""
 definer = ""
@@ -19,8 +21,12 @@ def checkFile(file_tofill):
 
 def saveCharVal(user_file):
     charDoc = open(str(user_file)+".txt", 'a')
-    charDoc.write(pj.charDict["nombre"]+";"+pj.charDict[])
-
+    charDoc.write(pj.charDict["nombre"]+";")
+    charDoc.write(pj.charDict["edad"]+";")
+    charDoc.write(pj.charDict["clase"]+";")
+    charDoc.write(pj.charDict["apariencia"]+";")
+    charDoc.write(pj.charDict["personalidad"]+";")
+    charDoc.write(pj.charDict["historia"])
 def fillVariables(new):
     list = ""
     modifier = ""
@@ -98,7 +104,7 @@ def addAgeChar(message):
 def addAgeChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    #print(show + "//////" + definer)
+    print(show + "//////" + definer)
     pj.addField(definer, show)
     bot.send_message(message.chat.id,"Eso es bueno, pensaba que eras un hombre sin cara y me asusté.")
 
@@ -106,7 +112,7 @@ def addAgeChar(message):
 def addAgeChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    #print(show + "//////" + definer)
+    print(show + "//////" + definer)
     pj.addField(definer, show)
     bot.send_message(message.chat.id,"Ahora siento que te conozco mejor.")
 
