@@ -16,6 +16,9 @@ menu_keyboard = json.dumps({'keyboard': [["/crear_personaje"]], 'one_time_keyboa
 option1_keyboard = json.dumps({'keyboard': [["/ayuda"], ["/crear"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 option2_keyboard = json.dumps({'keyboard': [["/guardar"],["/no_guardar"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 
+def checkFileContent(file_tocheck):
+    charDoc = open(str(user_file)+".txt", 'r')
+
 def checkFile(file_tofill):
     return os.path.isfile(str(file_tofill))
 
@@ -26,7 +29,7 @@ def saveCharVal(user_file):
     charDoc.write(pj.charDict["clase"]+";")
     charDoc.write(pj.charDict["apariencia"]+";")
     charDoc.write(pj.charDict["personalidad"]+";")
-    charDoc.write(pj.charDict["historia"])
+    charDoc.write(pj.charDict["historia"]+"\n")
 def fillVariables(new):
     list = ""
     modifier = ""
@@ -74,7 +77,7 @@ def menu_info(message):
             bot.send_message(message.chat.id, "Ya tienes un personaje.")
         else:
             bot.send_message(message.chat.id,"""...\n...\n...\n...\n...\n...\nINICIANDO PROCESO DE CREACIÓN DE PERSONAJE\n...\n...\n...\n...\n...\n...""")
-            documentoPj = open (str(username) + ".txt", "w")
+            documentoPj = open (str(username) + ".txt", "w+")
             documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
             documentoPj.close()
 
@@ -138,6 +141,8 @@ def saveCharValues(message):
         username = message.chat.first_name
         if checkFile(str(username) + ".txt") == True:
             saveCharVal(str(username))
+            pj.removeAllFields()
+            bot.send_message(message.chat.id, "Personaje creado.")
     else:
         pj.removeAllFields()
 
