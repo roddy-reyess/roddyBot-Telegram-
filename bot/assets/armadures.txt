@@ -1,0 +1,3 @@
+Nom ; Descripció
+Armadura de cuero ; Hecha de piel de animal esta armadura es perfecta para los principiantes.
+Armadura de hierro ; Hecha de hierro te permite aguantar más golpes
