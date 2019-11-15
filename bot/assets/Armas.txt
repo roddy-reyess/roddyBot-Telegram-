@@ -1,1 +1,4 @@
 Nombre ; Descripción
+Espada Corta ; Una espada corta que todo aventurero usa al principio de su aventura.
+Hacha del Desenlace ; Si recibes un golpe de esta hacha, no solo tu carne será cortada.
+Clockworks Blade ; Una espada que lleva cuatro engraanajes en la hoja, cada uno de ellos da un elemento al arma.
