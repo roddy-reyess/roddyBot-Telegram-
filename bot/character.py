@@ -1,4 +1,4 @@
-# coding: utf8
+#-*- coding: utf8 -*-
 class character():
     """
     Classe que controla els personatges.
