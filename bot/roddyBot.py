@@ -127,7 +127,8 @@ def saveCharValues(message):
 def mostraPersonatge(message):
     username = str(message.chat.first_name) + "_pj"
     content = checkFileContent(str(username)+".txt")
-    bot.send_message(message.chat.id, "Mostrando tú personaje:\n\n -------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
+    bot.send_message(message.chat.id, "Mostrando tú personaje:\n\n -------------------------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
+    
 
 
 

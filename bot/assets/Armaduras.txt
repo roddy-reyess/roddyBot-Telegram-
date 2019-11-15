@@ -1,0 +1,9 @@
+Nombre ; Descripción
+Armadura de Cuero ; Hecha de piel, de animal esta armadura es perfecta para los principiantes.
+Armadura de Hierro ; Hecha de hierro, te permite aguantar más golpes... pero ¡Deberías tener cuidado con las abolladuras!
+Armadura de Circonio ; Una armadura legendaria que se dice que perteneció a un antiguo héroe.
+Armadura de Leyenda Antigua ; Algo oxidada, esta armadura se dice que perteneció a un héroe que murió tras aniquilar los 5 escuadrones de Archidemonios. ¡Ese óxido es por la sangre lo juro! D:
+Armadura de Astros Celestes ; Una armadura celestial tejida con la mismísima energía de las estrellas más azuladas. Se dice que llevarla te augura un futuro brillante.
+Armadura Maldita del Guerrero Fantasma ; Rápido como un rayo, fuerte ccomo un tornado, pero tras cada batalla una parte de tu alma será comida por el armadura.
+Armadura del Mañana ; Armadura llevada por el primer Guerrero solar, se dice que el mero hecho de llevarla ya te hace ganar cualquier batalla
+Armadura del Gran Héroe ; Una Armadura portada por el héroe que murió salvando su pueblo.
