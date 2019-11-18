@@ -73,6 +73,7 @@ def menu_info(message):
             documentoPj = open (str(username) + "_inv.txt", "w+")
             documentoPj.write("objeto ; descripción ; tipo" + "\n")
             documentoPj.close()
+            
 @bot.message_handler(commands=['nombre','edad', 'clase', 'apariencia','personalidad','historia'])
 def addNameChar(message):
     new = message.text.split()
