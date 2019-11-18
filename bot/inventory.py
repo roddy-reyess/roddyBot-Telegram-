@@ -5,10 +5,12 @@ class inventory():
         self.invFichero = inventoryFile
         self.objetos = []
 
-    def mostrarInventario():
+    def showInventory():
         invFile = open(self.invFichero,'r')
         doc_contents = charDoc.readlines()[1:]
         content = []
         for i in doc_contents:
             content = i.split(";")
         return content
+    def addtoInventory():
+        pass
