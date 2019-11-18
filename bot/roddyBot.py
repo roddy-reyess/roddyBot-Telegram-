@@ -121,7 +121,4 @@ def mostraPersonatge(message):
     content = checkFileContent(str(charFile)+".txt")
     bot.send_message(message.chat.id, "Mostrando tu personaje:\n\n -------------------------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
 
-
-
-
 bot.polling(none_stop=True)
