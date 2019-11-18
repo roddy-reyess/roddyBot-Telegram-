@@ -1,2 +1,0 @@
-nombre ; edad ; clase ; apariencia ; personalidad ; historia
-Roddy Taijang ;18 ;guerro solar ;cabello negro desaliñado, ojos rojos ;con un gran sentido de justicia, impulsivo, pero buena gente ;nacido en Sundae, perdió su familia de jóven 
