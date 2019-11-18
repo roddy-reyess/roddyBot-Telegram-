@@ -1,10 +1,11 @@
 #-*- coding: utf8 -*-
 import telebot
-from multiprocessing import Value
-from character import character
 import json
 import os.path
 import sys
+from multiprocessing import Value
+from character import character
+from inventory import inventory
 reload(sys)
 sys.setdefaultencoding('utf8')
 pj = character()
