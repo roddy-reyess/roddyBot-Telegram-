@@ -1,10 +1,11 @@
 #-*- coding: utf8 -*-
 import telebot
-from multiprocessing import Value
-from character import character
 import json
 import os.path
 import sys
+from multiprocessing import Value
+from character import character
+from inventory import inventory
 reload(sys)
 sys.setdefaultencoding('utf8')
 pj = character()
@@ -17,25 +18,9 @@ menu_keyboard = json.dumps({'keyboard': [["/crear_personaje"]], 'one_time_keyboa
 option1_keyboard = json.dumps({'keyboard': [["/ayuda"], ["/crear"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 option2_keyboard = json.dumps({'keyboard': [["/guardar"],["/no_guardar"]], 'one_time_keyboard': True, 'resize_keyboard': True})
 #a = Value('i', 4)
-def checkFileContent(file_tocheck):
-    charDoc = open(str(file_tocheck), 'r')
-    doc_contents = charDoc.readlines()[1:]
-    content = []
-    for i in doc_contents:
-        content = i.split(";")
-    return content
 
 def checkFile(file_tofill):
     return os.path.isfile(str(file_tofill))
-
-def saveCharVal(user_file):
-    charDoc = open(str(user_file)+".txt", 'a')
-    charDoc.write(pj.charDict["nombre"]+";")
-    charDoc.write(pj.charDict["edad"]+";")
-    charDoc.write(pj.charDict["clase"]+";")
-    charDoc.write(pj.charDict["apariencia"]+";")
-    charDoc.write(pj.charDict["personalidad"]+";")
-    charDoc.write(pj.charDict["historia"]+"\n")
 
 def fillVariables(new):
     list = ""
@@ -76,16 +61,19 @@ def menu_info(message):
         create_character(message)
 
     elif message.text =="/crear":
-        username = message.chat.first_name
+        username = "characters/" + message.chat.first_name
 
         if checkFile(str(username)+".txt") == True:
             bot.send_message(message.chat.id, "Ya tienes un personaje.")
         else:
-            bot.send_message(message.chat.id,"""...\n...\n...\n...\n...\n...\nINICIANDO PROCESO DE CREACIÓN DE PERSONAJE\n...\n...\n...\n...\n...\n...""")
+            bot.send_message(message.chat.id,"""Iniciando proceso de creación de personaje. \nPor favor usa /estatus para revisar que campos faltan por crear.""")
             documentoPj = open (str(username) + "_pj.txt", "w+")
             documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
             documentoPj.close()
-
+            documentoPj = open (str(username) + "_inv.txt", "w+")
+            documentoPj.write("objeto ; descripción ; tipo" + "\n")
+            documentoPj.close()
+            
 @bot.message_handler(commands=['nombre','edad', 'clase', 'apariencia','personalidad','historia'])
 def addNameChar(message):
     new = message.text.split()
@@ -116,20 +104,22 @@ def creationStatus(message):
 @bot.message_handler(commands=['guardar','no_guardar'])
 def saveCharValues(message):
     if message.text == "/guardar":
-        username = str(message.chat.first_name) + "_pj"
-        if checkFile(str(username) + ".txt") == True:
-            saveCharVal(str(username))
-            pj.removeAllFields()
-            bot.send_message(message.chat.id, "Personaje creado.")
+        charFile = "characters/" + str(message.chat.first_name) + "_pj"
+        invFile = "characters/" + str(message.chat.first_name) + "_inv"
+        if pj.checkFile(str(charFile) + ".txt") == True:
+            pj.saveCharVal(str(charFile))
+        else:
+            documentoPj = open (str(charFile) + ".txt", "w+")
+            documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
+            documentoPj.close()
+            pj.saveCharVal(str(charFile))
+        bot.send_message(message.chat.id, "Personaje creado, ahora será añadido tu inventario.")
     else:
         pj.removeAllFields()
 @bot.message_handler(commands=['yo'])
 def mostraPersonatge(message):
-    username = str(message.chat.first_name) + "_pj"
-    content = checkFileContent(str(username)+".txt")
-    bot.send_message(message.chat.id, "Mostrando tú personaje:\n\n -------------------------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
-    
-
-
+    charFile = "characters/" + str(message.chat.first_name) + "_pj"
+    content = checkFileContent(str(charFile)+".txt")
+    bot.send_message(message.chat.id, "Mostrando tu personaje:\n\n -------------------------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
 
 bot.polling(none_stop=True)

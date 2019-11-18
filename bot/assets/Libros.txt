@@ -1,0 +1,2 @@
+Libro ; Descripción ; Contenido
+Libro 1: "El amanecer" ; Un libro viejo, tiene una cubierta ya descolorida por el paso de los años, páginas amarillentas y lo que se cree que fue un recubrimiento de oro. Habla sobre como fue originada la vida; 
