@@ -1,2 +1,4 @@
-Libro ; Descripción ; Contenido
-Libro 1: "El amanecer" ; Un libro viejo, tiene una cubierta ya descolorida por el paso de los años, páginas amarillentas y lo que se cree que fue un recubrimiento de oro. Habla sobre como fue originada la vida; 
+Libro ; Descripción
+Libro 1: El amanecer ; Un libro viejo, tiene una cubierta ya descolorida por el paso de los años, páginas amarillentas y lo que se cree que fue un recubrimiento de oro. Habla sobre como fue originada la vida.
+Libro 2: La primera caida ; Otro libro viejo, este tiene un lomo verde con adornos y acabado en plata, sus páginas amarillentas aún son legibles, pero ten cuidado! Quizás esta historia no sea tan agradable como la anterior.
+Libro 3: Lux et noctis ;  

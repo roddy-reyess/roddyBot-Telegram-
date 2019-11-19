@@ -6,9 +6,11 @@ import sys
 from multiprocessing import Value
 from character import character
 from inventory import inventory
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 pj = character()
+inv = inventory()
 show = ""
 definer = ""
 new = ""
@@ -73,7 +75,7 @@ def menu_info(message):
             documentoPj = open (str(username) + "_inv.txt", "w+")
             documentoPj.write("objeto ; descripción ; tipo" + "\n")
             documentoPj.close()
-            
+
 @bot.message_handler(commands=['nombre','edad', 'clase', 'apariencia','personalidad','historia'])
 def addNameChar(message):
     new = message.text.split()

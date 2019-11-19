@@ -31,7 +31,7 @@ class character():
         for x,y in self.charDict.items():
             self.charDict[x] = ""
             print(self.charDict[x])
-    def checkFileContent(file_tocheck):
+    def checkFileContent(self,file_tocheck):
         charDoc = open(str(file_tocheck), 'r')
         doc_contents = charDoc.readlines()[1:]
         content = []
@@ -39,12 +39,12 @@ class character():
             content = i.split(";")
         return content
 
-        def saveCharVal(user_file):
+        def saveCharVal(self,user_file):
             charDoc = open(str(user_file)+".txt", 'a')
-            charDoc.write(pj.charDict["nombre"]+";")
-            charDoc.write(pj.charDict["edad"]+";")
-            charDoc.write(pj.charDict["clase"]+";")
-            charDoc.write(pj.charDict["apariencia"]+";")
-            charDoc.write(pj.charDict["personalidad"]+";")
-            charDoc.write(pj.charDict["historia"]+"\n")
+            charDoc.write(self.charDict["nombre"]+";")
+            charDoc.write(self.charDict["edad"]+";")
+            charDoc.write(self.charDict["clase"]+";")
+            charDoc.write(self.charDict["apariencia"]+";")
+            charDoc.write(self.charDict["personalidad"]+";")
+            charDoc.write(self.charDict["historia"]+"\n")
             charDoc.close()
