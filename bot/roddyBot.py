@@ -54,12 +54,13 @@ def menu_info(message):
 
         bot.send_message(message.chat.id, """
         Para crear un personaje necesitarás introducir los siguientes parámetros cómo será mostrado en el ejemplo:
-        \n \n nombre [nombre personaje]
-        \n \n edad [edad personaje]
-        \n \n clase [Clase de tu personaje] (es 100% decorativo)
-        \n \n apariencia [pequeña descripción]
-        \n \n personalidad [describir personalidad]
-        \n \n histroria [pequeña historia de tu personaje]""")
+        \n\n/nombre [nombre personaje]
+        \n\n/edad [edad personaje]
+        \n\n/clase [Clase de tu personaje] (es 100% decorativo)
+        \n\n/apariencia [pequeña descripción]
+        \n\n/personalidad [describir personalidad]
+        \n\n/histroria [pequeña historia de tu personaje]
+        \n\n/estatus para comprovar que campos faltan o para guardar el personaje""")
         create_character(message)
 
     elif message.text =="/crear":
