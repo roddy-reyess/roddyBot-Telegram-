@@ -1,1 +1,25 @@
 nombre ; descripción
+Carnet de novato ; Tener este carnet significa el inicio de tus aventuras por este mundo!
+Pañuelo rojo ; Una vez simbolizó un lazo de amistad que trascendió la muerte. Aunque para su portadora original, quizás ahora sólo sea un triste recuerdo de unos días de gloria. [desbloquea Libro de Yan #1]
+sombrero púrpura ; Un sombrero perteneciente a una maga que ganó el derecho de volver a la vida, pero el costo de eso fue algo que quizás no hubiera pagado de haberlo sabido. [desbloquea Libro de Yan #2 y #3]
+Decálogo del kamiista ; Sientes que si no cumples todos estos mandamientos irás al Kamiinfierno! D:
+Emblema Solar ; Felicidades, ahora eres un guerrero solar hecho y derecho!
+Peluche Adorable ; Parece que se llama Henry, aún no se sabe del todo bien porqué está aquí, pudes !darselo_a_laylah o !darselo_a_mei.
+Son hermanos! ; Fue dicho por conveniencia, pero quedó tan épico que nadie lo qüestiona.
+Doctorado de Casimiro Buenavista ; Sientes ganas de quemarlo todo por el Supremo. También quieres asesinar a un tal Damnet.
+Ropa sexy de mago ; Comprada en Atheria, esta ropa da +10 en sensualidad pero te da frío en las noches del desierto. Necesitarás calor humano, mejor dicho, lo conseguirás.
+Trofeo Sanguis Awards I ; Por algún extraño motivo los polos opuestos se atraen. Este trofeo al mejor villano pertenecía a Petrov (CB), fue dado al Cachero.
+Guión de Sanguis Awards II ; No se pudo hacer, pero ahí está.
+Clon del Cachero ; Simplementye no quieras saber de qué está hecho.
+Duwang ; No sólo es una Jojoreference, se dice que en Atheria es una delicatesen.
+Tequila del Mago ; Calienta el cuerpo pero enfría tu higado. Perfecto para una noche de juerga loca.
+Rubí maldito ; Aléjalo de Casimiro (Petrov)! D:
+Kawasaki Infinity ; Por algún extraño motivo sientes que ahora este es tu nombre.
+Amara Bama Dima Kambo ; Sientes el poder fluir, ya no tienes rival, bueno, los tenías pero murieron hace mucho.
+Cejas Supremas ; Sientes que eres un bengalí de corazón puro, ahora con un solo movimiento de cejas tod@s caerán a tus pies.
+Tabla Flotante ; Te dan ganas de surfear bajo la lluvia.
+Kit de estilismo dandy ; Hecho por un dandy para dandys, sientes el ritmo fluir. +10 en el estat de Baile.
+Balas GDR ; Sientes que puedes controlar la gravedad a tu voluntad. ¿Es eso algo bueno?
+Auriculares D-Spiral ; Un transmisor, unos auriculares y un visor, todo en uno! Qué gran invento.
+Estigma del Umbral ; Todos tenemos un destino oscuro, mas nuestras acciones lo iluminan. Sabias palabras dichas por el guerrero-mago más poderoso portador de esta marca.
+Baile Mortal ; Un dibujo que retrata la victoria del mejor peor aventurero contra un dios omnisciente en un duelo de baile.
