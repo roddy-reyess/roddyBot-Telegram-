@@ -132,6 +132,8 @@ def mostraPersonatge(message):
     invFile = "characters/" + str(message.chat.first_name) + "_inv"
     content = pj.checkFileContent(str(charFile)+".txt")
     invContent = inv.showInv(invFile+".txt")
+    for i in invContent:
+
     bot.send_message(message.chat.id, "Mostrando tu personaje:\n\n -------------------------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
     bot.send_message(message.chat.id, "Mostrando tu inventario:\n\n"+ str(invContent))
 
