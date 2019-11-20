@@ -1,2 +1,1 @@
 objeto ; descripción ; tipo
-Espada Corta  ;  Si recibes un golpe de esta hacha, no solo tu carne será cortada. ; Espada Corta Armadura de Cuero  ;  Hecha de piel, de animal esta armadura es perfecta para los principiantes. ; Armadura de Cuero Carnet de novato  ;  Tener este carnet significa el inicio de tus aventuras por este mundo! ; Carnet de novato 
