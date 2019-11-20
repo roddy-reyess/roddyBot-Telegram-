@@ -1,0 +1,1 @@
+nombre ; edad ; clase ; apariencia ; personalidad ; historia

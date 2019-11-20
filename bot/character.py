@@ -39,7 +39,7 @@ class character():
             content = i.split(";")
         return content
 
-        def saveCharVal(self,user_file):
+    def saveCharVal(self,user_file):
             charDoc = open(str(user_file)+".txt", 'a')
             charDoc.write(self.charDict["nombre"]+";")
             charDoc.write(self.charDict["edad"]+";")

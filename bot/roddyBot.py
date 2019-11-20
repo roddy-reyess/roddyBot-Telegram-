@@ -6,11 +6,14 @@ import sys
 from multiprocessing import Value
 from character import character
 from inventory import inventory
+from object import object
 
 reload(sys)
 sys.setdefaultencoding('utf8')
 pj = character()
 inv = inventory()
+allobjects = object()
+
 show = ""
 definer = ""
 new = ""
@@ -108,21 +111,28 @@ def creationStatus(message):
 def saveCharValues(message):
     if message.text == "/guardar":
         charFile = "characters/" + str(message.chat.first_name) + "_pj"
-        invFile = "characters/" + str(message.chat.first_name) + "_inv"
-        if pj.checkFile(str(charFile) + ".txt") == True:
+        invFile = "characters/" + str(message.chat.first_name) + "_inv.txt"
+        if checkFile(str(charFile) + ".txt") == True:
             pj.saveCharVal(str(charFile))
         else:
-            documentoPj = open (str(charFile) + ".txt", "w+")
+            documentoPj = open (str(charFile) + ".txt", 'w+')
             documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
             documentoPj.close()
             pj.saveCharVal(str(charFile))
         bot.send_message(message.chat.id, "Personaje creado, ahora será añadido tu inventario.")
+        if checkFile(str(invFile)) == True:
+            inv.addtoInventory(invFile, allobjects.objectArmas[0]["objeto"],allobjects.objectArmas[0]["descripcion"],allobjects.objectArmas[0]["tipo"])
+            inv.addtoInventory(invFile, allobjects.objectArmaduras[0]["objeto"],allobjects.objectArmaduras[0]["descripcion"],allobjects.objectArmaduras[0]["tipo"])
+            inv.addtoInventory(invFile, allobjects.objectColeccionables[0]["objeto"],allobjects.objectColeccionables[0]["descripcion"],allobjects.objectColeccionables[0]["tipo"])
     else:
         pj.removeAllFields()
 @bot.message_handler(commands=['yo'])
 def mostraPersonatge(message):
     charFile = "characters/" + str(message.chat.first_name) + "_pj"
-    content = checkFileContent(str(charFile)+".txt")
+    invFile = "characters/" + str(message.chat.first_name) + "_inv"
+    content = pj.checkFileContent(str(charFile)+".txt")
+    invContent = inv.showInv(invFile+".txt")
     bot.send_message(message.chat.id, "Mostrando tu personaje:\n\n -------------------------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
+    bot.send_message(message.chat.id, "Mostrando tu inventario:\n\n"+ str(invContent))
 
 bot.polling(none_stop=True)
