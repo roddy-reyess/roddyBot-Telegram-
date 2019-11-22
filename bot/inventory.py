@@ -23,6 +23,7 @@ class inventory():
         return exists
 
     def showInv(self, invFichero):
+        self.invObjects = []
         invFile = open(str(invFichero),'r')
         doc_contents = invFile.readlines()[1:]
         for i in doc_contents:

@@ -5,7 +5,11 @@ class character():
     """
 
     def __init__(self):
-        self.charDict = {
+        self.arrayChars = []
+
+    def createPjDict(self, cid):
+        charDict = {
+        "cid" : str(cid),
         "nombre" : "",
         "edad" : "",
         "clase" : "",
@@ -13,24 +17,28 @@ class character():
         "personalidad" : "",
         "historia" : ""
         }
+        self.arrayChars.append(charDict)
 
-    def charCheck(self):
+    def charCheck(self, cid):
         missingFields = []
-        for x,y in self.charDict.items():
-            if y != "":
-                pass
-            elif y == "":
-                missingFields.append(x)
+        for i in self.arrayChars:
+            if cid == i["cid"]:
+                for x,y in i.items():
+                    if y == "":
+                        missingFields.append(x)
         return missingFields
-
-    def addField(self, definer, text):
-        if definer in self.charDict:
-            self.charDict[definer] = text
-
-    def removeAllFields(self):
-        for x,y in self.charDict.items():
-            self.charDict[x] = ""
-            print(self.charDict[x])
+    def addField(self, cid, definer, text):
+        for i in range(len(self.arrayChars)):
+            if self.arrayChars[i]["cid"] == cid:
+                print("entra")
+                self.arrayChars[i][definer] = str(text)
+        print(self.arrayChars)
+    def removeAllFields(self, cid):
+        for i in range(len(self.arrayChars)):
+            if self.arrayChars[i]["cid"] == cid:
+                for x,y in self.arrayChars[i]:
+                    self.charDict[x] = ""
+        
     def checkFileContent(self,file_tocheck):
         charDoc = open(str(file_tocheck), 'r')
         doc_contents = charDoc.readlines()[1:]
@@ -39,12 +47,14 @@ class character():
             content = i.split(";")
         return content
 
-    def saveCharVal(self,user_file):
+    def saveCharVal(self,user_file, cid):
             charDoc = open(str(user_file)+".txt", 'a')
-            charDoc.write(self.charDict["nombre"]+";")
-            charDoc.write(self.charDict["edad"]+";")
-            charDoc.write(self.charDict["clase"]+";")
-            charDoc.write(self.charDict["apariencia"]+";")
-            charDoc.write(self.charDict["personalidad"]+";")
-            charDoc.write(self.charDict["historia"]+"\n")
-            charDoc.close()
+            for i in self.arrayChars:
+                if i["cid"] == cid:
+                    charDoc.write(i["nombre"]+";")
+                    charDoc.write(i["edad"]+";")
+                    charDoc.write(i["clase"]+";")
+                    charDoc.write(i["apariencia"]+";")
+                    charDoc.write(i["personalidad"]+";")
+                    charDoc.write(i["historia"]+"\n")
+                    charDoc.close()

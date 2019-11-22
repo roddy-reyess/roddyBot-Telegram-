@@ -1,10 +1,10 @@
 Libro ; Descripción
-Libro 1: El amanecer ; Un libro viejo, tiene una cubierta ya descolorida por el paso de los años, páginas amarillentas y lo que se cree que fue un recubrimiento de oro. Habla sobre como fue originada la vida.
-Libro 2: La primera caida ; Otro libro viejo, este tiene un lomo verde con adornos y acabado en plata, sus páginas amarillentas aún son legibles, pero ten cuidado! Quizás esta historia no sea tan agradable como la anterior.
-Libro 3: Lux et noctis ; por añadir
-Libro 4: Nueva era de Oro ; por añadir
-Libro 5: Luz del alba ; por añadir
-Libro 6: Dias de gloria ; por añadir
-Libro 7: La segunda caida ; por añadir
-Libro 8: Resurreción ; por añadir
-Libro 9: La última caida ; por añadir
+Libro 1: El amanecer; Un libro viejo, tiene una cubierta ya descolorida por el paso de los años, páginas amarillentas y lo que se cree que fue un recubrimiento de oro. Habla sobre como fue originada la vida.
+Libro 2: La primera caida; Otro libro viejo, este tiene un lomo verde con adornos y acabado en plata, sus páginas amarillentas aún son legibles, pero ten cuidado! Quizás esta historia no sea tan agradable como la anterior.
+Libro 3: Lux et noctis; por añadir
+Libro 4: Nueva era de Oro; por añadir
+Libro 5: Luz del alba; por añadir
+Libro 6: Dias de gloria; por añadir
+Libro 7: La segunda caida; por añadir
+Libro 8: Resurreción; por añadir
+Libro 9: La última caida; por añadir

@@ -26,7 +26,7 @@ class object():
             "tipo" : "[Arma]"
             }
             self.objectArmas.append(dicContent)
-        print(self.objectArmas)
+
 
     def fillArmaduras(self):
         armorFile = open("assets/Armaduras.txt",'r')
@@ -40,7 +40,7 @@ class object():
             "tipo" : "[Armadura]"
             }
             self.objectArmaduras.append(dicContent)
-        print(self.objectArmaduras)
+
     def fillColeccionables(self):
         objectFile = open("assets/Objetos.txt",'r')
         doc_contents = objectFile.readlines()[1:]
@@ -53,7 +53,7 @@ class object():
             "tipo" : "[Coleccionable]"
             }
             self.objectColeccionables.append(dicContent)
-        print(self.objectColeccionables)
+
     def fillLibros(self):
         bookFile = open("assets/Libros.txt",'r')
         doc_contents = bookFile.readlines()[1:]
@@ -66,4 +66,3 @@ class object():
             "tipo" : "[Libro]"
             }
             self.objectLibros.append(dicContent)
-        print(self.objectLibros)

@@ -68,8 +68,8 @@ def menu_info(message):
 
     elif message.text =="/crear":
         username = "characters/" + message.chat.first_name
-
-        if checkFile(str(username)+".txt") == True:
+        pj.createPjDict(str(message.chat.id))
+        if checkFile(str(username)+"_pj.txt") == True:
             bot.send_message(message.chat.id, "Ya tienes un personaje.")
         else:
             bot.send_message(message.chat.id,"""Iniciando proceso de creación de personaje. \nPor favor usa /estatus para revisar que campos faltan por crear.""")
@@ -84,7 +84,7 @@ def menu_info(message):
 def addNameChar(message):
     new = message.text.split()
     show, definer = fillVariables(new)
-    pj.addField(definer, show)
+    pj.addField(str(message.chat.id), definer, show)
     if "/nombre" in message.text:
         bot.send_message(message.chat.id,"Tu nombre ha sido añadido. Bienvenido " + str(show) + ".")
     elif "/edad" in message.text:
@@ -101,7 +101,7 @@ def addNameChar(message):
 
 @bot.message_handler(commands=['estatus'])
 def creationStatus(message):
-    missingElements = pj.charCheck()
+    missingElements = pj.charCheck(str(message.chat.id))
     if len(missingElements) >= 1:
         bot.send_message(message.chat.id, "Faltan los siguientes campos por rellenar: " + str(missingElements) + ".")
     else:
@@ -113,12 +113,12 @@ def saveCharValues(message):
         charFile = "characters/" + str(message.chat.first_name) + "_pj"
         invFile = "characters/" + str(message.chat.first_name) + "_inv.txt"
         if checkFile(str(charFile) + ".txt") == True:
-            pj.saveCharVal(str(charFile))
+            pj.saveCharVal(str(charFile), str(message.chat.id))
         else:
             documentoPj = open (str(charFile) + ".txt", 'w+')
             documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
             documentoPj.close()
-            pj.saveCharVal(str(charFile))
+            pj.saveCharVal(str(charFile), str(message.chat.id))
         bot.send_message(message.chat.id, "Personaje creado, ahora será añadido tu inventario.")
         if checkFile(str(invFile)) == True:
             inv.addtoInventory(invFile, allobjects.objectArmas[0]["objeto"],allobjects.objectArmas[0]["descripcion"],allobjects.objectArmas[0]["tipo"])
@@ -126,15 +126,47 @@ def saveCharValues(message):
             inv.addtoInventory(invFile, allobjects.objectColeccionables[0]["objeto"],allobjects.objectColeccionables[0]["descripcion"],allobjects.objectColeccionables[0]["tipo"])
     else:
         pj.removeAllFields()
+
+@bot.message_handler(commands=['armas'])
+def showArmas(message):
+    string = "Armas\n--------------------------------------------------\n"
+    for i in allobjects.objectArmas:
+        string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
+    bot.send_message(message.chat.id, str(string))
+
+@bot.message_handler(commands=['libros'])
+def showArmas(message):
+    string = "Libros\n--------------------------------------------------\n"
+    for i in allobjects.objectLibros:
+        string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
+    bot.send_message(message.chat.id, str(string))
+
+@bot.message_handler(commands=['armaduras'])
+def showArmas(message):
+    string = "Armaduras\n--------------------------------------------------\n"
+    for i in allobjects.objectArmaduras:
+        string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
+    bot.send_message(message.chat.id, str(string))
+
+@bot.message_handler(commands=['coleccionables'])
+def showArmas(message):
+    string = "Coleccionables\n--------------------------------------------------\n"
+    for i in allobjects.objectColeccionables:
+        string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
+    bot.send_message(message.chat.id, str(string))
+
 @bot.message_handler(commands=['yo'])
 def mostraPersonatge(message):
+
     charFile = "characters/" + str(message.chat.first_name) + "_pj"
     invFile = "characters/" + str(message.chat.first_name) + "_inv"
     content = pj.checkFileContent(str(charFile)+".txt")
     invContent = inv.showInv(invFile+".txt")
+    string = "Objetos\n--------------------------------------------------\n"
     for i in invContent:
-
+        string += i["objeto"]+":" + i["descripcion"] + i["tipo"]+"\n"
     bot.send_message(message.chat.id, "Mostrando tu personaje:\n\n -------------------------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
-    bot.send_message(message.chat.id, "Mostrando tu inventario:\n\n"+ str(invContent))
+    bot.send_message(message.chat.id, str(string))
+
 
 bot.polling(none_stop=True)
