@@ -8,3 +8,7 @@ Libro 6: Dias de gloria; por añadir
 Libro 7: La segunda caida; por añadir
 Libro 8: Resurreción; por añadir
 Libro 9: La última caida; por añadir
+RoddyLibro ; Cuenta la historia del bot, sólo apto para guerreros expertos.
+Libro de Yan #1 ; Contiene una carta escrita hace mucho por alguien que ya no existe.
+Libro de Yan #2 ; Contiene una carta escrita hace mucho por alguien que ya no existe, en esta parte se hablan de sus sueños y anhelos.
+Libro de Yan #3 ; Contiene una carta escrita hace mucho por alguien que ya no existe, es la última parte, contiene un texto dedicado a alguien que quiso con todo su corazón.
