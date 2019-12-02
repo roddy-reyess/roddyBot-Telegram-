@@ -17,7 +17,8 @@ class inventory():
         doc_contents = invFile.readlines()[1:]
         exists = False
         for i in doc_contents:
-            if object in i:
+            content = i.split(";")
+            if content[0] in object:
                 exists = True
         invFile.close()
         return exists

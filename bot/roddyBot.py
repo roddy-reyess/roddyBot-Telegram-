@@ -146,9 +146,6 @@ def saveCharValues(message):
             inv.addtoInventory(invFile, allobjects.objectArmas[0]["objeto"],allobjects.objectArmas[0]["descripcion"],allobjects.objectArmas[0]["tipo"])
             inv.addtoInventory(invFile, allobjects.objectArmaduras[0]["objeto"],allobjects.objectArmaduras[0]["descripcion"],allobjects.objectArmaduras[0]["tipo"])
             inv.addtoInventory(invFile, allobjects.objectColeccionables[0]["objeto"],allobjects.objectColeccionables[0]["descripcion"],allobjects.objectColeccionables[0]["tipo"])
-        eqdoc = open(str(eqFile),'w+')
-        eqdoc.write("nombre ; tipo\n")
-        eqdoc.close()
         bot.send_message(message.chat.id, "¡Listo!\n\nPuedes mirar tu personaje con /yo\n\nTu inventario con /inv o /inventario\n\nFinalmente puedes /equipar_arma [nombre arma] o /equipar_armadura [nombre armadura]\n\n IMPORTANTE: Revisa el inventario cada vez que quieras equipar algo, ya que se requiere el nombre completo.")
     else:
         pj.removeAllFields(str(message.chat.id))
@@ -200,31 +197,46 @@ def mostraInv(message):
 @bot.message_handler(commands=['equipar_arma','equipar_armadura'])
 def equipar(message):
     userfile = "characters/"+str(message.chat.first_name)+"_eq.txt"
-    equip.createEqDict(str(message.chat.id))
-
+    if equip.checkCid(str(message.chat.id)) == False:
+        equip.createEqDict(str(message.chat.id))
+    missingElements = []
     new = message.text.split()
     show, definer = fillVariables(new)
-    if new[0] == "/equipar_arma":
-        equip.addField(str(message.chat.id, "arma", show))
-        bot.send_message(message.chat.id,"Arma Equipada!")
+    if inv.checkObject("characters/"+message.chat.first_name+"_inv.txt", show) == True:
+        if new[0] == "/equipar_arma":
+            equip.addField(str(message.chat.id), "arma", show)
+            missingElements = equip.checkFields(str(message.chat.id))
+            print(len(missingElements))
+            bot.send_message(message.chat.id,"Arma Equipada!")
+        else:
+            equip.addField(str(message.chat.id), "armadura", show)
+            missingElements = equip.checkFields(str(message.chat.id))
+            bot.send_message(message.chat.id,"Armadura Equipada!")
+        if len(missingElements)>0:
+            bot.send_message(message.chat.id,"Falta por añadir: " + str(missingElements))
+        else:
+            bot.send_message(message.chat.id,"Usa /equipo para que los cambios sean guardados")
     else:
-        if inv.checkObject(userfile, definer) == True:
-            eqDoc = open(userfile,'w+')
-            eqDoc.write("nombre ; tipo\n")
-            eqDoc.write(str(definer)+"; [Armadura]\n")
-            eqDoc.close()
-        bot.send_message(message.chat.id,"Armadura Equipada!")
+
+        bot.send_message(message.chat.id,"No puedo equiparte un objeto que no tienes.")
 
 @bot.message_handler(commands=['equipo'])
 def mostrarEq(message):
-    usfile = "characters/"+str(message.chat.first_name)+"_eq.txt"
-    userfile = open(usfile,'r')
-    doc_contents = userfile.readlines()[1:]
+    eqFile = "characters/"+str(message.chat.first_name)+"_eq.txt"
     string = ""
-    for i in doc_contents:
-        contents = i.split(";")
-        i[1] = i[1].replace('\n','')
-        string += i[1] + ": " + i[0]+"\n\n"
+    if equip.checkCid(str(message.chat.id)) == True:
+        eqDict = equip.showEq(str(message.chat.id))
+        for key, value in eqDict.items():
+            if key != "cid":
+                string += key+": " + value + "\n"
+        fileEq = open(eqFile,'w')
+        fileEq.write(string)
+        fileEq.close()
+    elif checkFile(eqFile) == True:
+        fileEq = open(eqFile,'r')
+        doc_contents = fileEq.readlines()
+        for i in doc_contents:
+            string += i
     bot.send_message(message.chat.id,"Equipo actual.\n--------------------------------------\n"+ str(string))
 
 @bot.message_handler(commands=['borrar','seguir'])

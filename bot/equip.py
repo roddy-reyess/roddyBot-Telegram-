@@ -7,9 +7,9 @@ class equip(object):
 
     def createEqDict(self,cid):
         eqDict = {
-        "cid" = str(cid),
-        "arma" = "",
-        "armadura" = ""
+        "cid" : str(cid),
+        "arma" : "",
+        "armadura" : ""
         }
         self.arrayEq.append(eqDict)
 
@@ -21,7 +21,20 @@ class equip(object):
         return exists
 
     def addField(self, cid, definer, text):
-        for i in range(len(self.arrayChars)):
-            if self.arrayChars[i]["cid"] == cid:
-                self.arrayChars[i][definer] = str(text)
-        
+        for i in range(len(self.arrayEq)):
+            if self.arrayEq[i]["cid"] == cid:
+                self.arrayEq[i][definer] = str(text)
+
+    def checkFields(self, cid):
+        missingFields = []
+        for i in self.arrayEq:
+            if cid == i["cid"]:
+                for x,y in i.items():
+                    if y == "":
+                        missingFields.append(x)
+        return missingFields
+
+    def showEq(self, cid):
+        for i in self.arrayEq:
+            if cid == i["cid"]:
+                return i

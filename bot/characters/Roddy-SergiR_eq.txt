@@ -1,0 +1,2 @@
+arma: Espada Corta 
+armadura: Armadura de Cuero 
