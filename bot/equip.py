@@ -24,3 +24,4 @@ class equip(object):
         for i in range(len(self.arrayChars)):
             if self.arrayChars[i]["cid"] == cid:
                 self.arrayChars[i][definer] = str(text)
+        
