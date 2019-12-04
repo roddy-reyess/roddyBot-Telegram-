@@ -8,8 +8,8 @@ class inventory():
         self.invObjects = []
 
     def addtoInventory(self,invFichero,object,description,type):
-        invFile = open(str(invFichero),'a')
-        invFile.write(object + " ; " + description + " ; " + type + "\n")
+        invFile = open(str(invFichero),'a+')
+        invFile.write(object + "; " + description + "; " + type + "\n")
         invFile.close()
 
     def checkObject(self,invFichero,object):
@@ -18,7 +18,7 @@ class inventory():
         exists = False
         for i in doc_contents:
             content = i.split(";")
-            if content[0] in object:
+            if object in content[0]:
                 exists = True
         invFile.close()
         return exists

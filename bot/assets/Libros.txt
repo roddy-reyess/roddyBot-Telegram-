@@ -1,13 +1,13 @@
 Libro ; Descripción
 Libro 1: El amanecer; Un libro viejo, tiene una cubierta ya descolorida por el paso de los años, páginas amarillentas y lo que se cree que fue un recubrimiento de oro. Habla sobre como fue originada la vida.
-Libro 2: La primera caida; Otro libro viejo, este tiene un lomo verde con adornos y acabado en plata, sus páginas amarillentas aún son legibles, pero ten cuidado! Quizás esta historia no sea tan agradable como la anterior.
-Libro 3: Lux et noctis; por añadir
-Libro 4: Nueva era de Oro; por añadir
-Libro 5: Luz del alba; por añadir
-Libro 6: Dias de gloria; por añadir
-Libro 7: La segunda caida; por añadir
-Libro 8: Resurreción; por añadir
-Libro 9: La última caida; por añadir
+Libro 2: La primera caída; Otro libro viejo, este tiene un lomo verde con adornos y acabado en plata, sus páginas amarillentas aún son legibles, pero ten cuidado! Quizás esta historia no sea tan agradable como la anterior.
+Libro 3: Lux et noctis; Un libro de tapa dura que tiene un acabado dorado y un estampado de estrellas, contiene una duda filosófica.
+Libro 4: Nueva era de Oro; Un libro rojo, de aspecto solemne, fue escrito por el escritor personal de un Rey que logró salvar el mundo.
+Libro 5: Luz del alba; Un libro con un estampado de estrellas. Relata la historia de un niño que fue capaz de ver que hay más allá del cielo.
+Libro 6: Dias de gloria; Un libro escrito con una tinta especial. Relata el gran resurgir del ser Humano.
+Libro 7: La segunda caída; Un libro verde oscuro, durante mucho tiempo ha sido prohibido. Relata la segunda extinción de la raza humana.
+Libro 8: Resurreción; Como cualquier leyenda cíclica los seres humanos volvieron a poblar el planeta. Este libro es Azul, al leerlo se puede sentir que la historia no acabará bien.
+Libro 9: La última caída; Un libro que no se sabe si realmente existe, se rumorea que es naranja. Se dice que relata la última batalla por la supervivencia de los humanos, a día de hoy no se sabe cual fue el resultado.
 RoddyLibro ; Cuenta la historia del bot, sólo apto para guerreros expertos.
 Libro de Yan #1 ; Contiene una carta escrita hace mucho por alguien que ya no existe.
 Libro de Yan #2 ; Contiene una carta escrita hace mucho por alguien que ya no existe, en esta parte se hablan de sus sueños y anhelos.

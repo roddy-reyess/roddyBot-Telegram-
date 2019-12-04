@@ -3,17 +3,20 @@ import telebot
 import json
 import os
 import sys
+import time
 from multiprocessing import Value
 from character import character
 from inventory import inventory
 from object import object
 from equip import equip
+from readBooks import readBooks
 
 reload(sys)
 sys.setdefaultencoding('utf8')
 pj = character()
 inv = inventory()
 allobjects = object()
+book = readBooks()
 equip = equip()
 show = ""
 definer = ""
@@ -28,6 +31,10 @@ option3_keyboard = json.dumps({'keyboard': [["/borrar"],["/seguir"]], 'one_time_
 
 def checkFile(file_tofill):
     return os.path.isfile(str(file_tofill))
+
+def fileIsEmpty(path):
+    print(os.path.getsize(path))
+    return os.path.getsize(path) == 1
 
 def fillVariables(new):
     list = ""
@@ -51,6 +58,15 @@ def fileList(path, username):
 def deleteFiles(ufile):
     for i in ufile:
         os.remove(i)
+
+def obtainSecretBook(file):
+    for i in allobjects.objectLibros:
+
+        if "RoddyLibro" in i["objeto"]:
+            print(i["objeto"])
+            if inv.checkObject(str(file), i["objeto"]) == False:
+                inv.addtoInventory(str(file), i["objeto"], i["descripcion"], i["tipo"])
+
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
@@ -117,7 +133,7 @@ def addNameChar(message):
             elif "/personalidad" in message.text:
                 bot.send_message(message.chat.id,"Ahora siento que te conozco mejor.")
             elif "/historia" in message.text:
-                bot.send_message(message.chat.id,"Veo que tienes una historia... Algún día te contaré la mía, amigo.")
+                bot.send_message(message.chat.id,"Veo que tienes una historia... Algún día te contaré mi_historia, amigo.")
 
 
 @bot.message_handler(commands=['estatus'])
@@ -217,7 +233,6 @@ def equipar(message):
         else:
             bot.send_message(message.chat.id,"Usa /equipo para que los cambios sean guardados")
     else:
-
         bot.send_message(message.chat.id,"No puedo equiparte un objeto que no tienes.")
 
 @bot.message_handler(commands=['equipo'])
@@ -232,12 +247,18 @@ def mostrarEq(message):
         fileEq = open(eqFile,'w')
         fileEq.write(string)
         fileEq.close()
+        bot.send_message(message.chat.id,"Equipo actual.\n--------------------------------------\n"+ str(string))
     elif checkFile(eqFile) == True:
-        fileEq = open(eqFile,'r')
-        doc_contents = fileEq.readlines()
-        for i in doc_contents:
-            string += i
-    bot.send_message(message.chat.id,"Equipo actual.\n--------------------------------------\n"+ str(string))
+        if fileIsEmpty(eqFile) == True:
+            bot.send_message(message.chat.id, "Deberias probar a equiparte algo antes de mirar que equipo tienes...")
+        else:
+            fileEq = open(eqFile,'r')
+            doc_contents = fileEq.readlines()
+            for i in doc_contents:
+                string += i
+            bot.send_message(message.chat.id,"Equipo actual.\n--------------------------------------\n"+ str(string))
+    else:
+        bot.send_message(message.chat.id, "Deberias probar a equiparte algo antes de mirar que equipo tienes...")
 
 @bot.message_handler(commands=['borrar','seguir'])
 def borrarPJ(message):
@@ -252,5 +273,22 @@ def borrarPJ(message):
     else:
         bot.send_message(message.chat.id,"Has escogido seguir con tu personaje, estoy orgulloso de ti.")
 
+@bot.message_handler(commands=['leer'])
+def readBook(message):
+    file = "characters/"+str(message.chat.first_name)+"_inv.txt"
+    new = message.text.split()
+    show, definer = fillVariables(new)
+    if inv.checkObject(str(file),show) == True:
+        bot.send_message(message.chat.id, "Accediendo al contenido del libro...")
+        time.sleep(5)
+        read = book.readBooks(str(show))
+        bot.send_message(message.chat.id, str(read))
+
+@bot.message_handler(commands=['mi_historia'])
+def botHistoria(message):
+    file = "characters/"+message.chat.first_name+"_inv.txt"
+    bot.send_message(message.chat.id, "Así que quieres saber mi historia... Gracias.")
+    obtainSecretBook(file)
+    bot.send_message(message.chat.id, "Creo que deberías revisar tú inventario.")
 
 bot.polling(none_stop=True)
