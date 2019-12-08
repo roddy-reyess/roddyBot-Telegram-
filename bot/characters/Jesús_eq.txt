@@ -1,0 +1,2 @@
+arma: RoddyLibro 
+armadura: Carnet de novato 

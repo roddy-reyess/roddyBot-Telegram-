@@ -1,2 +1,2 @@
-arma: Espada Corta 
-armadura: Armadura de Cuero 
+arma: espada corta
+armadura: armadura de cuero

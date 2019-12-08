@@ -3,7 +3,7 @@ import sys
 import os
 reload(sys)
 sys.setdefaultencoding('utf8')
-class readBooks(object):
+class readBooks():
     """docstring for readBooks."""
 
     def __init__(self):
@@ -14,15 +14,15 @@ class readBooks(object):
         for r, d, f in os.walk("assets/libros/"):
             for file in f:
                 self.booksRead.append(os.path.join(r,file))
-        print(self.booksRead)
-    def readBooks(self, bookName):
-        book = ""
-        for i in self.booksRead:
 
-            if i.find(bookName) == -1:
-                print "entro"
+    def readBooks(self, bookName):
+        content = ""
+        for i in self.booksRead:
+            books = i.split("/")
+            if bookName.lower() in books[2].lower():
+                print("entro")
                 new = open(i, 'r')
                 doc_contents = new.readlines()
                 for z in doc_contents:
-                    book += z
-        return book
+                    content += z
+        return content

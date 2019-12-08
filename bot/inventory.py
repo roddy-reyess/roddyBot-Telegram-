@@ -18,10 +18,20 @@ class inventory():
         exists = False
         for i in doc_contents:
             content = i.split(";")
-            if object in content[0]:
+            if object.lower() in content[0].lower():
                 exists = True
         invFile.close()
         return exists
+
+    def checkType(self, invFichero, object):
+        invFile = open(str(invFichero),'r')
+        doc_contents = invFile.readlines()[1:]
+        type = ""
+        for i in doc_contents:
+            content = i.split(";")
+            if object.lower() in content[0].lower():
+                type = content[2]
+        return type
 
     def showInv(self, invFichero):
         self.invObjects = []

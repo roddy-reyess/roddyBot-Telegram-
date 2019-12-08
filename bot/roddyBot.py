@@ -33,18 +33,18 @@ def checkFile(file_tofill):
     return os.path.isfile(str(file_tofill))
 
 def fileIsEmpty(path):
-    print(os.path.getsize(path))
-    return os.path.getsize(path) == 1
+    return os.path.getsize(path) <=1
 
 def fillVariables(new):
     list = ""
     modifier = ""
     for i in new:
         if i != new[0]:
-            list = list + i + " "
+            list += i + " "
         else:
             modifier = modifier + i
             modifier = modifier.replace(modifier[0], "")
+    list = list[:-1]
     return list, modifier
 
 def fileList(path, username):
@@ -61,9 +61,7 @@ def deleteFiles(ufile):
 
 def obtainSecretBook(file):
     for i in allobjects.objectLibros:
-
         if "RoddyLibro" in i["objeto"]:
-            print(i["objeto"])
             if inv.checkObject(str(file), i["objeto"]) == False:
                 inv.addtoInventory(str(file), i["objeto"], i["descripcion"], i["tipo"])
 
@@ -71,9 +69,18 @@ def obtainSecretBook(file):
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     if message.text == "/start":
-        	bot.send_message(message.chat.id, """Bienvenido a roddyBot!! \n \n Un bot en el que vivirás miles de aventuras!""", reply_markup = menu_keyboard)
+        	bot.send_message(message.chat.id, """Bienvenido a roddyBot!!\n\nUn bot en el que vivirás miles de aventuras!""", reply_markup = menu_keyboard)
     elif message.text == "/help":
-        bot.send_message(message.chat.id, """Lista de comandos!! \n\n /start - Te permite iniciar el bot \n /help muestra los comandos posibles \n /character""")
+        bot.send_message(message.chat.id, """Lista de comandos!!
+        \n\n/start - Te permite iniciar el bot\n\n/help - Muestra los comandos posibles
+        \n\n/crear_personaje - Te permite entrar en el menú de creación de personaje
+        \n\n/armas - Muestra todas las armas que puedo darte... ¡Ten cuidado son peligrosas!
+        \n\n/armaduras - Muestra todas las armaduras que puedo darte. ¡Una buena defensa siempre ayuda!
+        \n\n/coleccionables - Muestra todos los objetos especiales que existen!
+        \n\n/libros - Muestra todos los libros que existen, ¡Encuentralos todos!
+        \n\n/yo - Permite revisar tú personaje
+        \n\n/inv - Permite revisar tu inventario
+        \n\n/equipar [nombre arma o armadura] - Permite equiparte armas y armaduras!""")
 
 @bot.message_handler(commands=['crear_personaje'])
 def create_character(message):
@@ -162,36 +169,29 @@ def saveCharValues(message):
             inv.addtoInventory(invFile, allobjects.objectArmas[0]["objeto"],allobjects.objectArmas[0]["descripcion"],allobjects.objectArmas[0]["tipo"])
             inv.addtoInventory(invFile, allobjects.objectArmaduras[0]["objeto"],allobjects.objectArmaduras[0]["descripcion"],allobjects.objectArmaduras[0]["tipo"])
             inv.addtoInventory(invFile, allobjects.objectColeccionables[0]["objeto"],allobjects.objectColeccionables[0]["descripcion"],allobjects.objectColeccionables[0]["tipo"])
-        bot.send_message(message.chat.id, "¡Listo!\n\nPuedes mirar tu personaje con /yo\n\nTu inventario con /inv o /inventario\n\nFinalmente puedes /equipar_arma [nombre arma] o /equipar_armadura [nombre armadura]\n\n IMPORTANTE: Revisa el inventario cada vez que quieras equipar algo, ya que se requiere el nombre completo.")
+        bot.send_message(message.chat.id, "¡Listo!\n\nPuedes mirar tu personaje con /yo\n\nTu inventario con /inv o /inventario\n\nFinalmente puedes /equipar [nombre arma] o /equipar [nombre armadura]\n\n IMPORTANTE: Revisa el inventario cada vez que quieras equipar algo, ya que se requiere el nombre completo.")
     else:
         pj.removeAllFields(str(message.chat.id))
 
-@bot.message_handler(commands=['armas'])
+@bot.message_handler(commands=['armas','libros','armaduras','coleccionables'])
 def showArmas(message):
-    string = "Armas\n--------------------------------------------------\n"
-    for i in allobjects.objectArmas:
-        string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
-    bot.send_message(message.chat.id, str(string))
-
-@bot.message_handler(commands=['libros'])
-def showArmas(message):
-    string = "Libros\n--------------------------------------------------\n"
-    for i in allobjects.objectLibros:
-        string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
-    bot.send_message(message.chat.id, str(string))
-
-@bot.message_handler(commands=['armaduras'])
-def showArmas(message):
-    string = "Armaduras\n--------------------------------------------------\n"
-    for i in allobjects.objectArmaduras:
-        string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
-    bot.send_message(message.chat.id, str(string))
-
-@bot.message_handler(commands=['coleccionables'])
-def showArmas(message):
-    string = "Coleccionables\n--------------------------------------------------\n"
-    for i in allobjects.objectColeccionables:
-        string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
+    string = ""
+    if "/armas" in message.text:
+        string = "Armas\n--------------------------------------------------\n"
+        for i in allobjects.objectArmas:
+            string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
+    if "/libros" in message.text:
+        string = "Libros\n--------------------------------------------------\n"
+        for i in allobjects.objectLibros:
+            string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
+    if "/armaduras" in message.text:
+        string = "Armaduras\n--------------------------------------------------\n"
+        for i in allobjects.objectArmaduras:
+            string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
+    if "/coleccionables" in message.text:
+        string = "Coleccionables\n--------------------------------------------------\n"
+        for i in allobjects.objectColeccionables:
+            string += i["objeto"]+":" + i["descripcion"] + i["tipo"] + "\n\n"
     bot.send_message(message.chat.id, str(string))
 
 @bot.message_handler(commands=['yo'])
@@ -210,28 +210,34 @@ def mostraInv(message):
         string += i["objeto"]+":" + i["descripcion"] + i["tipo"]+"\n"
     bot.send_message(message.chat.id, str(string))
 
-@bot.message_handler(commands=['equipar_arma','equipar_armadura'])
+@bot.message_handler(commands=['equipar'])
 def equipar(message):
-    userfile = "characters/"+str(message.chat.first_name)+"_eq.txt"
+    userfile = "characters/"+str(message.chat.first_name)+"_inv.txt"
     if equip.checkCid(str(message.chat.id)) == False:
         equip.createEqDict(str(message.chat.id))
     missingElements = []
     new = message.text.split()
     show, definer = fillVariables(new)
-    if inv.checkObject("characters/"+message.chat.first_name+"_inv.txt", show) == True:
-        if new[0] == "/equipar_arma":
+
+    if inv.checkObject(str(userfile), show) == True:
+        if "[Arma]" in inv.checkType(str(userfile), show):
             equip.addField(str(message.chat.id), "arma", show)
             missingElements = equip.checkFields(str(message.chat.id))
-            print(len(missingElements))
             bot.send_message(message.chat.id,"Arma Equipada!")
-        else:
+            if len(missingElements)>0:
+                bot.send_message(message.chat.id,"Falta por añadir: " + str(missingElements))
+            else:
+                bot.send_message(message.chat.id,"Usa /equipo para que los cambios sean guardados")
+        elif "[Armadura]" in inv.checkType(str(userfile), show):
             equip.addField(str(message.chat.id), "armadura", show)
             missingElements = equip.checkFields(str(message.chat.id))
             bot.send_message(message.chat.id,"Armadura Equipada!")
-        if len(missingElements)>0:
-            bot.send_message(message.chat.id,"Falta por añadir: " + str(missingElements))
+            if len(missingElements)>0:
+                bot.send_message(message.chat.id,"Falta por añadir: " + str(missingElements))
+            else:
+                bot.send_message(message.chat.id,"Usa /equipo para que los cambios sean guardados")
         else:
-            bot.send_message(message.chat.id,"Usa /equipo para que los cambios sean guardados")
+            bot.send_message(message.chat.id, "¡Eso no es ni un Arma ni una Armadura!")
     else:
         bot.send_message(message.chat.id,"No puedo equiparte un objeto que no tienes.")
 
@@ -279,16 +285,21 @@ def readBook(message):
     new = message.text.split()
     show, definer = fillVariables(new)
     if inv.checkObject(str(file),show) == True:
-        bot.send_message(message.chat.id, "Accediendo al contenido del libro...")
-        time.sleep(5)
-        read = book.readBooks(str(show))
-        bot.send_message(message.chat.id, str(read))
+        if "[Libro]" in inv.checkType(str(file), show):
+            bot.send_message(message.chat.id, "Accediendo al contenido del libro...")
+            read = book.readBooks(str(show))
+            time.sleep(5)
+            bot.send_message(message.chat.id, str(read))
+        else:
+            bot.send_message(message.chat.id, "Creo que " +str(show)+" no es un libro, o quizás es que es un item que no tienes. De cualquier modo, lo siento, prueba a escribir el nombre de un libro que tengas por favor...")
+    else:
+        bot.send_message(message.chat.id, "No puedo mostrarte algo que no tienes.")
 
 @bot.message_handler(commands=['mi_historia'])
 def botHistoria(message):
     file = "characters/"+message.chat.first_name+"_inv.txt"
     bot.send_message(message.chat.id, "Así que quieres saber mi historia... Gracias.")
     obtainSecretBook(file)
-    bot.send_message(message.chat.id, "Creo que deberías revisar tú inventario.")
+    bot.send_message(message.chat.id, "Creo que deberías revisar tu inventario. Aunque quizás ya lo tenías.")
 
 bot.polling(none_stop=True)

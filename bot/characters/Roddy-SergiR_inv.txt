@@ -3,3 +3,4 @@ Espada Corta ;  Una espada corta que todo aventurero usa al principio de su aven
 Armadura de Cuero ;  Hecha de piel, de animal esta armadura es perfecta para los principiantes.; [Armadura]
 Carnet de novato ;  Tener este carnet significa el inicio de tus aventuras por este mundo!; [Coleccionable]
 RoddyLibro ;  Cuenta la historia del bot, sólo apto para guerreros expertos.; [Libro]
+Libro 1: El amanecer;  Un libro viejo, tiene una cubierta ya descolorida por el paso de los años, páginas amarillentas y lo que se cree que fue un recubrimiento de oro. Habla sobre como fue originada la vida.; [Libro]

@@ -1,5 +1,5 @@
 #-*- coding: utf8 -*-
-class equip(object):
+class equip():
     """docstring for equip."""
 
     def __init__(self):
