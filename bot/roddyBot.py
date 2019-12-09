@@ -72,7 +72,8 @@ def send_welcome(message):
         	bot.send_message(message.chat.id, """Bienvenido a roddyBot!!\n\nUn bot en el que vivirás miles de aventuras!""", reply_markup = menu_keyboard)
     elif message.text == "/help":
         bot.send_message(message.chat.id, """Lista de comandos!!
-        \n\n/start - Te permite iniciar el bot\n\n/help - Muestra los comandos posibles
+        \n/start - Te permite iniciar el bot
+        \n\n/help - Muestra los comandos posibles
         \n\n/crear_personaje - Te permite entrar en el menú de creación de personaje
         \n\n/armas - Muestra todas las armas que puedo darte... ¡Ten cuidado son peligrosas!
         \n\n/armaduras - Muestra todas las armaduras que puedo darte. ¡Una buena defensa siempre ayuda!
@@ -284,16 +285,19 @@ def readBook(message):
     file = "characters/"+str(message.chat.first_name)+"_inv.txt"
     new = message.text.split()
     show, definer = fillVariables(new)
-    if inv.checkObject(str(file),show) == True:
-        if "[Libro]" in inv.checkType(str(file), show):
-            bot.send_message(message.chat.id, "Accediendo al contenido del libro...")
-            read = book.readBooks(str(show))
-            time.sleep(5)
-            bot.send_message(message.chat.id, str(read))
-        else:
-            bot.send_message(message.chat.id, "Creo que " +str(show)+" no es un libro, o quizás es que es un item que no tienes. De cualquier modo, lo siento, prueba a escribir el nombre de un libro que tengas por favor...")
+    if show.lower() == "libro":
+        bot.send_message(message.chat.id, "Esos són demasiados registros!")
     else:
-        bot.send_message(message.chat.id, "No puedo mostrarte algo que no tienes.")
+        if inv.checkObject(str(file),show) == True:
+            if "[Libro]" in inv.checkType(str(file), show):
+                bot.send_message(message.chat.id, "Accediendo al contenido del libro...")
+                read = book.readBooks(str(show))
+                time.sleep(5)
+                bot.send_message(message.chat.id, str(read))
+            else:
+                bot.send_message(message.chat.id, "Creo que " +str(show)+" no es un libro, o quizás es que es un item que no tienes. De cualquier modo, lo siento, prueba a escribir el nombre de un libro que tengas por favor...")
+        else:
+            bot.send_message(message.chat.id, "No puedo mostrarte algo que no tienes.")
 
 @bot.message_handler(commands=['mi_historia'])
 def botHistoria(message):
