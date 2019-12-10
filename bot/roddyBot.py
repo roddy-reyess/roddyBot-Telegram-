@@ -298,6 +298,16 @@ def readBook(message):
                 bot.send_message(message.chat.id, "Creo que " +str(show)+" no es un libro, o quizás es que es un item que no tienes. De cualquier modo, lo siento, prueba a escribir el nombre de un libro que tengas por favor...")
         else:
             bot.send_message(message.chat.id, "No puedo mostrarte algo que no tienes.")
+@bot.message_handler(commands=['darselo_a_mei','darselo_a_laylah'])
+def sorpresa(message):
+    invfile = "characters/"+message.chat.first_name+"_inv.txt"
+    if inv.checkObject(invfile, "Peluche Adorable") == True:
+        if "mei" in message.text:
+            bot.send_message(message.chat.id, "Tras la muerte de Yan Wung, te propusiste devolverle el peluche a su hija...\n\n...Sin embargo, parece que ya no está aquí.")
+        if "laylah" in message.text:
+            bot.send_message(message.chat.id, "Tras la muerte de Yan Wung, te propusiste darle el peluche a Laylah...\n\n...Parece que eso la hizo sonreir con melancolía.")
+    else:
+        bot.send_message(message.chat.id, "Es demasiado pronto aún para esto.")
 
 @bot.message_handler(commands=['mi_historia'])
 def botHistoria(message):

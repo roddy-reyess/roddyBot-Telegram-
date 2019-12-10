@@ -6,3 +6,7 @@ RoddyLibro ;  Cuenta la historia del bot, sólo apto para guerreros expertos.; [
 Libro 1: El amanecer;  Un libro viejo, tiene una cubierta ya descolorida por el paso de los años, páginas amarillentas y lo que se cree que fue un recubrimiento de oro. Habla sobre como fue originada la vida.; [Libro]
 Libro 2: La primera caída; Otro libro viejo, este tiene un lomo verde con adornos y acabado en plata, sus páginas amarillentas aún son legibles, pero ten cuidado! Quizás esta historia no sea tan agradable como la anterior.; [Libro]
 Libro 3: Lux et noctis; Un libro de tapa dura que tiene un acabado dorado y un estampado de estrellas, contiene una duda filosófica.; [Libro]
+Libro 4: Nueva era de Oro; Un libro rojo, de aspecto solemne, fue escrito por el escritor personal de un Rey que logró salvar el mundo.; [Libro]
+Libro 5: Luz del alba; Un libro con un estampado de estrellas. Relata la historia de un niño que fue capaz de ver que hay más allá del cielo.; [Libro]
+Peluche Adorable; Parece que se llama Henry, aún no se sabe del todo bien porqué está aquí, puedes /darselo_a_laylah o /darselo_a_mei.; [Coleccionable]
+Libro 6: Días de gloria; Un libro escrito con una tinta especial. Relata el gran resurgir del ser Humano.; [Libro]
