@@ -20,7 +20,6 @@ class readBooks():
         for i in self.booksRead:
             books = i.split("/")
             if bookName.lower() in books[2].lower():
-                print("entro")
                 new = open(i, 'r')
                 doc_contents = new.readlines()
                 for z in doc_contents:

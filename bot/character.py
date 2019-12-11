@@ -31,7 +31,6 @@ class character():
     def addField(self, cid, definer, text):
         for i in range(len(self.arrayChars)):
             if self.arrayChars[i]["cid"] == cid:
-                print("entra")
                 self.arrayChars[i][definer] = str(text)
 
     def removeAllFields(self, cid):

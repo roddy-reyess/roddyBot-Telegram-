@@ -75,7 +75,6 @@ def dungeon():
     randnum = 0
     while finished == False:
         randnum = random.randint(1,20)
-        print randnum
         if randnum <= 5:
             finished = True
         elif randnum >= 15:
@@ -93,7 +92,7 @@ def getRewards(invfile):
     done = False
     while done == False:
         randomBook = random.randint(0,len(allobjects.objectLibros)-1)
-        if allobjects.objectLibros[randomBook]['objeto'].lower() != "roddylibro" and allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #1" and allobjects.objectLibros[randomBook]['objeto'].lower() and "libro de yan #2" and allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #3":
+        if allobjects.objectLibros[randomBook]['objeto'].lower() != "roddylibro" and allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #1" and allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #2" and allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #3":
             randomItem = random.randint(0, len(allobjects.objectColeccionables)-1)
             randomArmor = random.randint(0, len(allobjects.objectArmaduras)-1)
             randomWeapon = random.randint(00, len(allobjects.objectArmaduras)-1)
@@ -122,6 +121,8 @@ def getRewards(invfile):
             if inv.checkObject(invfile, str(allobjects.objectArmas[randomWeapon]['objeto']))==False:
                 rewards.append(allobjects.objectArmas[randomWeapon])
             if len(rewards) >= 1:
+                done = True
+            else:
                 done = True
     return rewards
 
@@ -272,9 +273,28 @@ def mostraInv(message):
     invFile = "characters/" + str(message.chat.first_name) + "_inv"
     invContent = inv.showInv(invFile+".txt")
     string = "Objetos\n--------------------------------------------------\n"
+    strings=[]
+    show=['']
+    counter = 0
+    strings.append(string)
     for i in invContent:
-        string += i["objeto"]+":" + i["descripcion"] + i["tipo"]+"\n"
-    bot.send_message(message.chat.id, str(string))
+        strings.append(i["objeto"]+":" + i["descripcion"] + i["tipo"]+"\n")
+    devider= len(strings)/2-1
+    for i in strings:
+        if counter < devider:
+            show[0] += i
+        elif counter == devider:
+            show.append(i)
+        else:
+            if counter == devider*2:
+                show.append(i)
+            elif counter > devider*2:
+                show[2] += i
+            else:
+                show[1]+= i
+        counter = counter +1
+    for i in show:
+        bot.send_message(message.chat.id, str(i))
     semaphore.release()
 
 @bot.message_handler(commands=['equipar'])
@@ -393,14 +413,17 @@ def send_dungeon(message):
     if result <= 5:
         bot.send_message(message.chat.id,"Vaya... Caíste en la mazmorra. Todos los items que encontraste en la aventura que has embarcado se han perdido...")
     else:
-        bot.send_message(message.chat.id, "¡Sobreviviste! Eso significa que todo lo que te has encontrado en el camino es para ti.")
+        bot.send_message(message.chat.id, "¡Sobreviviste! Eso significa que todo lo que te has encontrado en el camino es para ti, bueno si lograste encontrar algo.")
         premios = getRewards("characters/"+str(message.chat.first_name)+"_inv.txt")
-        string = "Objetos Añadidos:\n\n"
-        bot.send_message(message.chat.id,"Añadiendo a tu inventario...")
-        for i in premios:
-            string+=i['objeto']+"\n\n"
-            inv.addtoInventory("characters/"+str(message.chat.first_name)+"_inv.txt",i['objeto'],i['descripcion'],i['tipo'])
-        bot.send_message(message.chat.id, str(string))
+        if len(premios) >= 1:
+            string = "Objetos Añadidos:\n\n"
+            bot.send_message(message.chat.id,"Añadiendo a tu inventario...")
+            for i in premios:
+                string+=i['objeto']+"\n\n"
+                inv.addtoInventory("characters/"+str(message.chat.first_name)+"_inv.txt",i['objeto'],i['descripcion'],i['tipo'])
+            bot.send_message(message.chat.id, str(string))
+        else:
+            bot.send_message(message.chat.id, "Todos tenemos un mal día, parece que esta vez no obtuviste ningún objeto... O quizás, ¡Es que ya los tienes todos!")
     semaphore.release()
 @bot.message_handler(commands=['mi_historia'])
 def botHistoria(message):
