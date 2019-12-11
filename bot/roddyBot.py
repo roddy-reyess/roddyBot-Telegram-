@@ -93,7 +93,7 @@ def getRewards(invfile):
     done = False
     while done == False:
         randomBook = random.randint(0,len(allobjects.objectLibros)-1)
-        if allobjects.objectLibros[randomBook]['objeto'].lower() != "roddylibro" or allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #1" or allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #2" or allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #3":
+        if allobjects.objectLibros[randomBook]['objeto'].lower() != "roddylibro" and allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #1" and allobjects.objectLibros[randomBook]['objeto'].lower() and "libro de yan #2" and allobjects.objectLibros[randomBook]['objeto'].lower() != "libro de yan #3":
             randomItem = random.randint(0, len(allobjects.objectColeccionables)-1)
             randomArmor = random.randint(0, len(allobjects.objectArmaduras)-1)
             randomWeapon = random.randint(00, len(allobjects.objectArmaduras)-1)
