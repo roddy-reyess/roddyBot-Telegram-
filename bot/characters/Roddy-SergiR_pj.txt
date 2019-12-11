@@ -1,2 +1,2 @@
 nombre ; edad ; clase ; apariencia ; personalidad ; historia
-Roddy Taijang ;18 ;Guerrero Solar ;https://static.zerochan.net/Yusei.Fudo.full.2068762.jpg ;Fuerte, amable y algo cabezota ;Nacido en Sundae perdió su familia de joven 
+Roddy Taijang ;18 ;Guerrero Solar ;https://static.zerochan.net/Yusei.Fudo.full.2068762.jpg ;Fuerte, amable y algo cabezota ;Nacido en Sundae perdió su familia de joven

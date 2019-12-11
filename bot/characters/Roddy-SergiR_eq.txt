@@ -1,2 +1,2 @@
-arma: brazomizador
-armadura: armadura de leyenda antigua
+arma: Espada Solar Luminaire
+armadura: armadura de cuero
