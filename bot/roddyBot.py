@@ -379,6 +379,8 @@ def readBook(message):
     show, definer = fillVariables(new)
     if show.lower() == "libro":
         bot.send_message(message.chat.id, "Esos son demasiados registros!")
+    elif show in str(range(1,10)):
+        bot.send_message(message.chat.id, "Esos son demasiados registros!")
     else:
         if inv.checkObject(str(file),show) == True:
             if "[Libro]" in inv.checkType(str(file), show):
