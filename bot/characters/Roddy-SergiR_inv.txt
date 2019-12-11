@@ -1,5 +1,4 @@
-objeto ; descripción ; tipo
+nombre ; descripción ; tipo
 Espada Corta;  Una espada corta que todo aventurero usa al principio de su aventura.; [Arma]
 Armadura de Cuero;  Hecha de piel, de animal esta armadura es perfecta para los principiantes.; [Armadura]
 Carnet de novato;  Tener este carnet significa el inicio de tus aventuras por este mundo!; [Coleccionable]
-RoddyLibro;  Cuenta la historia del bot, solo apto para guerreros expertos.; [Libro]

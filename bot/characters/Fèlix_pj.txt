@@ -1,2 +1,0 @@
-nombre ; edad ; clase ; apariencia ; personalidad ; historia
-Cactus Boreal ;8 ;Cactus de tundra ;Verde, redondo, con una florecilla en la cabeza y con pinchos ;Personalidad puntiaguda ;Plantado por Natalia en la tundra 

@@ -164,7 +164,8 @@ def menu_info(message):
         \n\n/apariencia [pequeña descripción o link a una imagen] \n\nejemplo: /apariencia azul | /apariencia http://cosas.imagen/imagen.jpg
         \n\n/personalidad [describir personalidad]
         \n\n/histroria [pequeña historia de tu personaje]
-        \n\n/estatus para comprobar que campos faltan o para guardar el personaje""")
+        \n\n/estatus para comprobar que campos faltan o para guardar el personaje
+        \n\nAVISO: Si te equivocas mientras estás editando un campo puedes editarlo volviendo a escribir el comando.""")
         create_character(message)
 
     elif message.text =="/crear":
@@ -174,13 +175,7 @@ def menu_info(message):
             bot.send_message(message.chat.id, "Ya tienes un personaje. ¿Quieres borrar tu personaje?", reply_markup = option3_keyboard)
         else:
             pj.createPjDict(str(message.chat.id))
-            bot.send_message(message.chat.id,"""Iniciando proceso de creación de personaje.\nPor favor usa /estatus para revisar que campos faltan por crear y para guardar el personaje una vez estén todos los campos llenos.""")
-            documentoPj = open (str(username) + "_pj.txt", "w+")
-            documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
-            documentoPj.close()
-            documentoPj = open (str(username) + "_inv.txt", "w+")
-            documentoPj.write("objeto ; descripción ; tipo" + "\n")
-            documentoPj.close()
+            bot.send_message(message.chat.id,"""Iniciando proceso de creación de personaje.\n\nPor favor usa /estatus para revisar que campos faltan por crear y para guardar el personaje una vez estén todos los campos llenos.\n\nSi te equivocas mientras estás editando un campo puedes editarlo volviendo a escribir el comando.""")
 
 @bot.message_handler(commands=['nombre','edad', 'clase', 'apariencia','personalidad','historia'])
 def addNameChar(message):
@@ -222,19 +217,34 @@ def saveCharValues(message):
         charFile = "characters/" + str(message.chat.first_name) + "_pj"
         invFile = "characters/" + str(message.chat.first_name) + "_inv.txt"
         eqFile = "characters/" + str(message.chat.first_name) + "_eq.txt"
-        if checkFile(str(charFile) + ".txt") == True:
-            pj.saveCharVal(str(charFile), str(message.chat.id))
+
+        if checkFile(str(charFile) + ".txt") == False:
+            if pj.cidExists(str(message.chat.id)) == False:
+                bot.send_message(message.chat.id, "No creo que hayas accedido desde el menú de creación de personaje")
+            elif len(pj.charCheck(str(message.chat.id))) >= 1:
+                bot.send_message(message.chat.id, "Si no están todos los campos llenos... ¿Para qué los quieres guardar?.")
+            else:
+                documentoPj = open (str(charFile) + ".txt", "w")
+                documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
+                documentoPj.close()
+                pj.saveCharVal(str(charFile), str(message.chat.id))
+                bot.send_message(message.chat.id, "Personaje creado, ahora será añadido tu inventario.")
+                if checkFile(str(invFile)) == False:
+                    documentoPj = open (str(invFile), "w")
+                    documentoPj.write("nombre ; descripción ; tipo" + "\n")
+                    documentoPj.close()
+                    inv.addtoInventory(invFile, allobjects.objectArmas[0]["objeto"],allobjects.objectArmas[0]["descripcion"],allobjects.objectArmas[0]["tipo"])
+                    inv.addtoInventory(invFile, allobjects.objectArmaduras[0]["objeto"],allobjects.objectArmaduras[0]["descripcion"],allobjects.objectArmaduras[0]["tipo"])
+                    inv.addtoInventory(invFile, allobjects.objectColeccionables[0]["objeto"],allobjects.objectColeccionables[0]["descripcion"],allobjects.objectColeccionables[0]["tipo"])
+                    bot.send_message(message.chat.id, "¡Listo!\n\nPuedes mirar tu personaje con /yo\n\nTu inventario con /inv o /inventario\n\nFinalmente, puedes /equipar [nombre arma] o /equipar [nombre armadura]\n\n IMPORTANTE: Revisa el inventario cada vez que quieras equipar algo, ya que se requiere el nombre completo.")
+        elif fileIsEmpty(str(charFile) + ".txt") == False:
+            bot.send_message(message.chat.id, "Creo que ya tienes un personaje, ¿Porqué quieres duplicarte?")
+
+        elif fileIsEmpty(str(invFile)) == False:
+            bot.send_message(message.chat.id, "La duplicación de inventario está prohibida en 7 paises.")
         else:
-            documentoPj = open (str(charFile) + ".txt", 'w+')
-            documentoPj.write("nombre ; edad ; clase ; apariencia ; personalidad ; historia" + "\n")
-            documentoPj.close()
-            pj.saveCharVal(str(charFile), str(message.chat.id))
-        bot.send_message(message.chat.id, "Personaje creado, ahora será añadido tu inventario.")
-        if checkFile(str(invFile)) == True:
-            inv.addtoInventory(invFile, allobjects.objectArmas[0]["objeto"],allobjects.objectArmas[0]["descripcion"],allobjects.objectArmas[0]["tipo"])
-            inv.addtoInventory(invFile, allobjects.objectArmaduras[0]["objeto"],allobjects.objectArmaduras[0]["descripcion"],allobjects.objectArmaduras[0]["tipo"])
-            inv.addtoInventory(invFile, allobjects.objectColeccionables[0]["objeto"],allobjects.objectColeccionables[0]["descripcion"],allobjects.objectColeccionables[0]["tipo"])
-        bot.send_message(message.chat.id, "¡Listo!\n\nPuedes mirar tu personaje con /yo\n\nTu inventario con /inv o /inventario\n\nFinalmente, puedes /equipar [nombre arma] o /equipar [nombre armadura]\n\n IMPORTANTE: Revisa el inventario cada vez que quieras equipar algo, ya que se requiere el nombre completo.")
+            bot.send_message(message.chat.id, "Deberías ir al menú de creación de personaje. /crear_personaje")
+
     else:
         pj.removeAllFields(str(message.chat.id))
     semaphore.release()

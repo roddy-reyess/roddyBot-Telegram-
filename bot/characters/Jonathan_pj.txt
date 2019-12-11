@@ -1,2 +1,0 @@
-nombre ; edad ; clase ; apariencia ; personalidad ; historia
-Vegito002 ;22 ;el macho ;https://static.zerochan.net/Vegito.full.1737133.jpg ;MUY NICO NICO NI  ;el mamadisimo machado

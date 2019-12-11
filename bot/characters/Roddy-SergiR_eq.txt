@@ -1,2 +1,0 @@
-arma: Espada Solar Luminaire
-armadura: armadura de cuero

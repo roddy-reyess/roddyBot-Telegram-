@@ -1,2 +1,0 @@
-nombre ; edad ; clase ; apariencia ; personalidad ; historia
-nombre ;edad ;Aplicacions Hibridfes ;apariencia ;pene ;historia 

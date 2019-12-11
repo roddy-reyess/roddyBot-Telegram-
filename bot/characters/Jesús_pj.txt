@@ -1,2 +1,0 @@
-nombre ; edad ; clase ; apariencia ; personalidad ; historia
-Alfonso ;57 ;abanicador de pavos ;https://upload.wikimedia.org/wikipedia/commons/6/65/Alfons_XII_%28cropped%29.JPG ;Galán, seductor, casanova, picha brava ;Pues... pues ni idea realmente, solo es un tipo al que le gustan los pavos y se dedica a abanicarlos 
