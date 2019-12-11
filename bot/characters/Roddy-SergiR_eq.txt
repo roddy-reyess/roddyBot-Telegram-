@@ -1,2 +1,2 @@
-arma: espada corta
-armadura: armadura de cuero
+arma: brazomizador
+armadura: armadura de leyenda antigua
