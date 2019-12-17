@@ -217,7 +217,6 @@ def saveCharValues(message):
         charFile = "characters/" + str(message.chat.first_name) + "_pj"
         invFile = "characters/" + str(message.chat.first_name) + "_inv.txt"
         eqFile = "characters/" + str(message.chat.first_name) + "_eq.txt"
-
         if checkFile(str(charFile) + ".txt") == False:
             if pj.cidExists(str(message.chat.id)) == False:
                 bot.send_message(message.chat.id, "No creo que hayas accedido desde el menú de creación de personaje")
@@ -272,71 +271,81 @@ def showArmas(message):
 
 @bot.message_handler(commands=['yo'])
 def mostraPersonatge(message):
+    semaphore.acquire()
     charFile = "characters/" + str(message.chat.first_name) + "_pj"
-    content = pj.checkFileContent(str(charFile)+".txt")
-    bot.send_message(message.chat.id, "Mostrando tu personaje:\n\n -------------------------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
-
+    if checkFile(str(charFile) + ".txt") == False:
+        bot.send_message(message.chat.id, "No sé quien eres...\n\n Deberías probar a crear un personaje con /crear_personaje")
+    else:
+        content = pj.checkFileContent(str(charFile)+".txt")
+        bot.send_message(message.chat.id, "Mostrando tu personaje:\n\n -------------------------------------- \nnombre: " + str(content[0]) + "\nedad: " + str(content[1]) + "\nclase: " + str(content[2]) + "\napariencia: " + str(content[3]) + "\npersonalidad: " + str(content[4]) + "\nhistoria: " + str(content[5]))
+    semaphore.release()
 
 @bot.message_handler(commands=['inventario','inv'])
 def mostraInv(message):
     semaphore.acquire()
     invFile = "characters/" + str(message.chat.first_name) + "_inv"
-    invContent = inv.showInv(invFile+".txt")
-    string = "Objetos\n--------------------------------------------------\n"
-    strings=[]
-    show=['']
-    counter = 0
-    strings.append(string)
-    for i in invContent:
-        strings.append(i["objeto"]+":" + i["descripcion"] + i["tipo"]+"\n")
-    devider= len(strings)/2-1
-    for i in strings:
-        if counter < devider:
-            show[0] += i
-        elif counter == devider:
-            show.append(i)
-        else:
-            if counter == devider*2:
+    if checkFile(str(invFile) + ".txt") == False:
+        bot.send_message(message.chat.id, "¿Estás seguro de eso? No recuerdo haberte visto por aquí antes... Prueba /crear_personaje")
+    else:
+        invContent = inv.showInv(invFile+".txt")
+        string = "Objetos\n--------------------------------------------------\n"
+        strings=[]
+        show=['']
+        counter = 0
+        strings.append(string)
+        for i in invContent:
+            strings.append(i["objeto"]+":" + i["descripcion"] + i["tipo"]+"\n")
+        devider= len(strings)/2-1
+        for i in strings:
+            if counter < devider:
+                show[0] += i
+            elif counter == devider:
                 show.append(i)
-            elif counter > devider*2:
-                show[2] += i
             else:
-                show[1]+= i
-        counter = counter +1
-    for i in show:
-        bot.send_message(message.chat.id, str(i))
+                if counter == devider*2:
+                    show.append(i)
+                elif counter > devider*2:
+                    show[2] += i
+                else:
+                    show[1]+= i
+            counter = counter +1
+        for i in show:
+            bot.send_message(message.chat.id, str(i))
     semaphore.release()
 
 @bot.message_handler(commands=['equipar'])
 def equipar(message):
     semaphore.acquire()
     userfile = "characters/"+str(message.chat.first_name)+"_inv.txt"
-    if equip.checkCid(str(message.chat.id)) == False:
-        equip.createEqDict(str(message.chat.id))
-    missingElements = []
-    new = message.text.split()
-    show, definer = fillVariables(new)
-    if inv.checkObject(str(userfile), show) == True:
-        if "[Arma]" in inv.checkType(str(userfile), show):
-            equip.addField(str(message.chat.id), "arma", show)
-            missingElements = equip.checkFields(str(message.chat.id))
-            bot.send_message(message.chat.id,"Arma Equipada!")
-            if len(missingElements)>0:
-                bot.send_message(message.chat.id,"Falta por añadir: " + str(missingElements))
-            else:
-                bot.send_message(message.chat.id,"Usa /equipo para que los cambios sean guardados.")
-        elif "[Armadura]" in inv.checkType(str(userfile), show):
-            equip.addField(str(message.chat.id), "armadura", show)
-            missingElements = equip.checkFields(str(message.chat.id))
-            bot.send_message(message.chat.id,"Armadura Equipada!")
-            if len(missingElements)>0:
-                bot.send_message(message.chat.id,"Falta por añadir: " + str(missingElements))
-            else:
-                bot.send_message(message.chat.id,"Usa /equipo para que los cambios sean guardados.")
-        else:
-            bot.send_message(message.chat.id, "¡Eso no es ni un Arma ni una Armadura!")
+    if checkFile(str(userfile)) == False:
+        bot.send_message(message.chat.id, "No puedo revisar tu equipo si no tienes personaje. Crea un personaje con /crear_personaje")
     else:
-        bot.send_message(message.chat.id,"No puedo equiparte un objeto que no tienes.")
+        if equip.checkCid(str(message.chat.id)) == False:
+            equip.createEqDict(str(message.chat.id))
+        missingElements = []
+        new = message.text.split()
+        show, definer = fillVariables(new)
+        if inv.checkObject(str(userfile), show) == True:
+            if "[Arma]" in inv.checkType(str(userfile), show):
+                equip.addField(str(message.chat.id), "arma", show)
+                missingElements = equip.checkFields(str(message.chat.id))
+                bot.send_message(message.chat.id,"Arma Equipada!")
+                if len(missingElements)>0:
+                    bot.send_message(message.chat.id,"Falta por añadir: " + str(missingElements))
+                else:
+                    bot.send_message(message.chat.id,"Usa /equipo para que los cambios sean guardados.")
+            elif "[Armadura]" in inv.checkType(str(userfile), show):
+                equip.addField(str(message.chat.id), "armadura", show)
+                missingElements = equip.checkFields(str(message.chat.id))
+                bot.send_message(message.chat.id,"Armadura Equipada!")
+                if len(missingElements)>0:
+                    bot.send_message(message.chat.id,"Falta por añadir: " + str(missingElements))
+                else:
+                    bot.send_message(message.chat.id,"Usa /equipo para que los cambios sean guardados.")
+            else:
+                bot.send_message(message.chat.id, "¡Eso no es ni un Arma ni una Armadura!")
+        else:
+            bot.send_message(message.chat.id,"No puedo equiparte un objeto que no tienes.")
     semaphore.release()
 
 @bot.message_handler(commands=['equipo'])
@@ -363,7 +372,7 @@ def mostrarEq(message):
                 string += i
             bot.send_message(message.chat.id,"Equipo actual:\n--------------------------------------\n"+ str(string))
     else:
-        bot.send_message(message.chat.id, "Deberias probar a equiparte algo antes de mirar que equipo tienes...")
+        bot.send_message(message.chat.id, "Deberias probar a equiparte algo antes de mirar que equipo tienes...\n\n ...O en caso de no tener crearte uno.")
     semaphore.release()
 
 @bot.message_handler(commands=['borrar','seguir'])
@@ -401,14 +410,14 @@ def readBook(message):
             else:
                 bot.send_message(message.chat.id, "Creo que " +str(show)+" no es un libro, o quizás es que es un item que no tienes. De cualquier modo, lo siento, prueba a escribir el nombre de un libro que tengas por favor...")
         else:
-            bot.send_message(message.chat.id, "No puedo mostrarte algo que no tienes.")
+            bot.send_message(message.chat.id, "No puedo mostrarte algo que no tienes.\n\n En caso de no tener personaje prueba a crear uno con /crear_personaje")
     semaphore.release()
 
 @bot.message_handler(commands=['darselo_a_mei','darselo_a_laylah'])
 def sorpresa(message):
     semaphore.acquire()
     invfile = "characters/"+message.chat.first_name+"_inv.txt"
-    if inv.checkObject(invfile, "Peluche Adorable") == True:
+    if inv.checkObject(invfile, "Peluche Adorable") == True and if checkFile(str(invfile)) == True:
         if "mei" in message.text:
             bot.send_message(message.chat.id, "Tras la muerte de Yan Wung, te propusiste devolverle el peluche a su hija...\n\n...Sin embargo, parece que ya no está aquí.")
         if "laylah" in message.text:
@@ -416,34 +425,41 @@ def sorpresa(message):
     else:
         bot.send_message(message.chat.id, "Es demasiado pronto aún para esto.")
     semaphore.release()
+
 @bot.message_handler(commands=['mazmorra','aventura'])
 def send_dungeon(message):
     semaphore.acquire()
-    bot.send_message(message.chat.id,"Decides ir de aventura a " + str(randomDungeon()))
-    result = dungeon()
-    time.sleep(5)
-    if result <= 5:
-        bot.send_message(message.chat.id,"Vaya... Caíste en la mazmorra. Todos los items que encontraste en la aventura que has embarcado se han perdido...")
+    if checkFile("characters/"+ message.chat.first_name+ "_pj.txt") == False:
+        bot.send_message(message.chat.id, "¡Es peligroso ir solo! Crea un personaje con /crear_personaje")
     else:
-        bot.send_message(message.chat.id, "¡Sobreviviste! Eso significa que todo lo que te has encontrado en el camino es para ti, bueno si lograste encontrar algo.")
-        premios = getRewards("characters/"+str(message.chat.first_name)+"_inv.txt")
-        if len(premios) >= 1:
-            string = "Objetos Añadidos:\n\n"
-            bot.send_message(message.chat.id,"Añadiendo a tu inventario...")
-            for i in premios:
-                string+=i['objeto']+"\n\n"
-                inv.addtoInventory("characters/"+str(message.chat.first_name)+"_inv.txt",i['objeto'],i['descripcion'],i['tipo'])
-            bot.send_message(message.chat.id, str(string))
+        bot.send_message(message.chat.id,"Decides ir de aventura a " + str(randomDungeon()))
+        result = dungeon()
+        time.sleep(5)
+        if result <= 5:
+            bot.send_message(message.chat.id,"Vaya... Caíste en la mazmorra. Todos los items que encontraste en la aventura que has embarcado se han perdido...")
         else:
-            bot.send_message(message.chat.id, "Todos tenemos un mal día, parece que esta vez no obtuviste ningún objeto... O quizás, ¡Es que ya los tienes todos!")
+            bot.send_message(message.chat.id, "¡Sobreviviste! Eso significa que todo lo que te has encontrado en el camino es para ti, bueno si lograste encontrar algo.")
+            premios = getRewards("characters/"+str(message.chat.first_name)+"_inv.txt")
+            if len(premios) >= 1:
+                string = "Objetos Añadidos:\n\n"
+                bot.send_message(message.chat.id,"Añadiendo a tu inventario...")
+                for i in premios:
+                    string+=i['objeto']+"\n\n"
+                    inv.addtoInventory("characters/"+str(message.chat.first_name)+"_inv.txt",i['objeto'],i['descripcion'],i['tipo'])
+                bot.send_message(message.chat.id, str(string))
+            else:
+                bot.send_message(message.chat.id, "Todos tenemos un mal día, parece que esta vez no obtuviste ningún objeto... O quizás, ¡Es que ya los tienes todos!")
     semaphore.release()
 @bot.message_handler(commands=['mi_historia'])
 def botHistoria(message):
     semaphore.acquire()
     file = "characters/"+message.chat.first_name+"_inv.txt"
-    bot.send_message(message.chat.id, "Así que quieres saber mi historia... Gracias.")
-    obtainSecretBook(file)
-    bot.send_message(message.chat.id, "Creo que deberías revisar tu inventario. Aunque quizás ya lo tenías.")
+    if checkFile(str(file) + ".txt") == False:
+        bot.send_message(message.chat.id, "N-no sé cómo es que has llegado aquí... Pero deberías crear un personaje desde /crear_personaje")
+    else:
+        bot.send_message(message.chat.id, "Así que quieres saber mi historia... Gracias.")
+        obtainSecretBook(file)
+        bot.send_message(message.chat.id, "Creo que deberías revisar tu inventario. Aunque quizás ya lo tenías.")
     semaphore.release()
 
 bot.polling(none_stop=True)
