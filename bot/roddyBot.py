@@ -417,13 +417,16 @@ def readBook(message):
 def sorpresa(message):
     semaphore.acquire()
     invfile = "characters/"+message.chat.first_name+"_inv.txt"
-    if inv.checkObject(invfile, "Peluche Adorable") == True and if checkFile(str(invfile)) == True:
-        if "mei" in message.text:
-            bot.send_message(message.chat.id, "Tras la muerte de Yan Wung, te propusiste devolverle el peluche a su hija...\n\n...Sin embargo, parece que ya no está aquí.")
-        if "laylah" in message.text:
-            bot.send_message(message.chat.id, "Tras la muerte de Yan Wung, te propusiste darle el peluche a Laylah...\n\n...Parece que eso la hizo sonreir con melancolía.")
+    if checkFile(str(invfile)) == True:
+        if inv.checkObject(invfile, "Peluche Adorable") == True:
+            if "mei" in message.text:
+                bot.send_message(message.chat.id, "Tras la muerte de Yan Wung, te propusiste devolverle el peluche a su hija...\n\n...Sin embargo, parece que ya no está aquí.")
+            if "laylah" in message.text:
+                bot.send_message(message.chat.id, "Tras la muerte de Yan Wung, te propusiste darle el peluche a Laylah...\n\n...Parece que eso la hizo sonreir con melancolía.")
+        else:
+            bot.send_message(message.chat.id, "Es demasiado pronto aún para esto.")
     else:
-        bot.send_message(message.chat.id, "Es demasiado pronto aún para esto.")
+        bot.send_message(message.chat.id, "No tienes un personaje, crea uno con /crear_personaje.")
     semaphore.release()
 
 @bot.message_handler(commands=['mazmorra','aventura'])
