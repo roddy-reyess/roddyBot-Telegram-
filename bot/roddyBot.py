@@ -453,6 +453,7 @@ def send_dungeon(message):
             else:
                 bot.send_message(message.chat.id, "Todos tenemos un mal día, parece que esta vez no obtuviste ningún objeto... O quizás, ¡Es que ya los tienes todos!")
     semaphore.release()
+    
 @bot.message_handler(commands=['mi_historia'])
 def botHistoria(message):
     semaphore.acquire()
