@@ -237,10 +237,7 @@ def saveCharValues(message):
                     inv.addtoInventory(invFile, allobjects.objectColeccionables[0]["objeto"],allobjects.objectColeccionables[0]["descripcion"],allobjects.objectColeccionables[0]["tipo"])
                     bot.send_message(message.chat.id, "¡Listo!\n\nPuedes mirar tu personaje con /yo\n\nTu inventario con /inv o /inventario\n\nFinalmente, puedes /equipar [nombre arma] o /equipar [nombre armadura]\n\n IMPORTANTE: Revisa el inventario cada vez que quieras equipar algo, ya que se requiere el nombre completo.")
         elif fileIsEmpty(str(charFile) + ".txt") == False:
-            bot.send_message(message.chat.id, "Creo que ya tienes un personaje, ¿Porqué quieres duplicarte?")
-
-        elif fileIsEmpty(str(invFile)) == False:
-            bot.send_message(message.chat.id, "La duplicación de inventario está prohibida en 7 paises.")
+            bot.send_message(message.chat.id, "La clonación está prohibida en 7 paises.")
         else:
             bot.send_message(message.chat.id, "Deberías ir al menú de creación de personaje. /crear_personaje")
 
@@ -453,12 +450,12 @@ def send_dungeon(message):
             else:
                 bot.send_message(message.chat.id, "Todos tenemos un mal día, parece que esta vez no obtuviste ningún objeto... O quizás, ¡Es que ya los tienes todos!")
     semaphore.release()
-    
+
 @bot.message_handler(commands=['mi_historia'])
 def botHistoria(message):
     semaphore.acquire()
     file = "characters/"+message.chat.first_name+"_inv.txt"
-    if checkFile(str(file) + ".txt") == False:
+    if checkFile(str(file)) == False:
         bot.send_message(message.chat.id, "N-no sé cómo es que has llegado aquí... Pero deberías crear un personaje desde /crear_personaje")
     else:
         bot.send_message(message.chat.id, "Así que quieres saber mi historia... Gracias.")
